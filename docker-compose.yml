@@ -2,6 +2,8 @@ version: '2'
 
 services:
   cassandra:
+    container_name: cassandra
     image: bitnami/cassandra:latest
   mqtt-connector:
+    container_name: connector
     build: ./mqtt-connector
