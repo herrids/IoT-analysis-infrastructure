@@ -29,5 +29,5 @@ def receive(username, password, hostname, port):
     client.loop_forever()
 
 if __name__ == "__main__":
-    console.log("jo")
+    print("jo")
     receive()
