@@ -1,6 +1,8 @@
 import paho.mqtt.client as mqtt
 import click
 
+print("jo eins")
+
 @click.command()
 @click.option('--password', default=None, help='MQTT password')
 @click.option('--username', default=None, help='MQTT username')
@@ -29,5 +31,5 @@ def receive(username, password, hostname, port):
     client.loop_forever()
 
 if __name__ == "__main__":
-    print("jo")
+    print("jo zwei")
     receive()
