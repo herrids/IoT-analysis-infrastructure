@@ -4,4 +4,4 @@ services:
   cassandra:
     image: bitnami/cassandra:latest
   mqtt-connector:
-    image: ./mqtt-connector
+    image: ./mqtt-connector/.
