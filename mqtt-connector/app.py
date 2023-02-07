@@ -11,7 +11,7 @@ def receive(username, password, hostname, port):
 
     def on_connect(client, userdata, flags, rc):
         print("Connected with result code " + str(rc))
-        client.subscribe("")
+        client.subscribe("#")
 
     client.on_connect = on_connect
 
