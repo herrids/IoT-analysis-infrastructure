@@ -1,8 +1,6 @@
 import paho.mqtt.client as mqtt
 import click
 
-print("jo eins")
-
 @click.command()
 @click.option('--password', default=None, help='MQTT password')
 @click.option('--username', default=None, help='MQTT username')
@@ -25,11 +23,8 @@ def receive(username, password, hostname, port):
     if password is not None and username is not None:
         client.username_pw_set(username=username, password=password)
     
-    print("try to connect")
     client.connect(hostname, port, 60)
-    print("connected")
     client.loop_forever()
 
 if __name__ == "__main__":
-    print("jo zwei")
     receive()
