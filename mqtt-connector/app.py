@@ -16,7 +16,8 @@ def receive(username, password, hostname, port):
     client.on_connect = on_connect
 
     def on_message(client, userdata, msg):
-        print(msg)
+        with open('message.txt','w') as f:
+            f.write(msg)
 
     client.on_message = on_message
 
