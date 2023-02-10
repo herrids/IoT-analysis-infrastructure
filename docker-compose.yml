@@ -7,3 +7,9 @@ services:
   mqtt-connector:
     container_name: connector
     build: ./mqtt-connector
+    volumes:
+      - db:/app
+
+volumes:
+  db:
+    driver: local
