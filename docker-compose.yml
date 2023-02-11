@@ -3,7 +3,10 @@ version: '2'
 services:
   cassandra:
     container_name: cassandra
+    hostname: cassandra
     image: bitnami/cassandra:latest
+    networks:
+      - app-tier
     ports:
       - 9042:9042
     volumes:
@@ -11,9 +14,15 @@ services:
   mqtt-connector:
     container_name: connector
     build: ./mqtt-connector
+    networks:
+      - app-tier
     depends_on:
       - cassandra
 
 volumes:
   cassandra_data:
     driver: local
+
+networks:
+  app-tier:
+    driver: bridge
