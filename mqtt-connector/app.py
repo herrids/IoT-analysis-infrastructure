@@ -1,12 +1,8 @@
 import paho.mqtt.client as mqtt
-import click
+from cassandra.cluster import Cluster
+import datetime
 
-@click.command()
-@click.option('--password', default=None, help='MQTT password')
-@click.option('--username', default=None, help='MQTT username')
-@click.option('--hostname', default="10.3.24.115", help='MQTT server hostname')
-@click.option('--port', default=1883, help='MQTT server port')
-def receive(username, password, hostname, port):
+def receive(db_session):
     client = mqtt.Client()
 
     def on_connect(client, userdata, flags, rc):
@@ -17,14 +13,40 @@ def receive(username, password, hostname, port):
 
     def on_message(client, userdata, msg):
         print(msg.topic + " " + msg.payload)
+        query = "INSERT INTO sensor_data (sensorName, sensorValue, timestamp)"
+        query = query + " VALUES (%s, %s, %s)"
+        db_session.execute(query, (msg.topic, msg.payload, datetime.utcnow()))
 
     client.on_message = on_message
 
-    if password is not None and username is not None:
-        client.username_pw_set(username=username, password=password)
-    
-    client.connect(hostname, port, 60)
+    client.connect("10.3.24.115", 1883, 60)
     client.loop_forever()
 
+def connect_db():
+    cluster = Cluster(['cassandra'],port=9042)
+    session = cluster.connect()
+    try:
+        session.execute("""
+            CREATE KEYSPACE IF NOT EXISTS myno 
+            WITH REPLICATION = 
+            { 'class' : 'SimpleStrategy', 'replication_factor' : 1 }
+        """)
+
+        session.set_keyspace('myno')
+
+        session.execute("""
+            CREATE TABLE IF NOT EXISTS sensor_data (
+                sensorName VARCHAR,
+                sensorValue DECIMAL,
+                timestamp DATETIME,
+                PRIMARY KEY (sensorName, timestamp)
+            )
+        """)
+        return session
+
+    except Exception as e:
+        print(e)
+
 if __name__ == "__main__":
-    receive()
+    db = connect_db()
+    receive(db)

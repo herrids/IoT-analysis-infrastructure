@@ -4,12 +4,14 @@ services:
   cassandra:
     container_name: cassandra
     image: bitnami/cassandra:latest
+    ports:
+      - 9042:9042
+    volumes:
+      - cassandra_data:/bitnami
   mqtt-connector:
     container_name: connector
     build: ./mqtt-connector
-    volumes:
-      - db:/app
 
 volumes:
-  db:
+  cassandra_data:
     driver: local
