@@ -25,7 +25,7 @@ def receive(db_session):
 
 def connect_db():
     auth_provider = PlainTextAuthProvider(username='username', password='password')
-    cluster = Cluster(['0.0.0.0'], port=9042, auth_provider = auth_provider)
+    cluster = Cluster(['cassandra'], port=9042, auth_provider = auth_provider)
     session = cluster.connect(wait_for_all_pools=True)
     try:
         session.execute("""
