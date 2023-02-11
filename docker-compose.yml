@@ -11,6 +11,8 @@ services:
   mqtt-connector:
     container_name: connector
     build: ./mqtt-connector
+    depends_on:
+      - cassandra
 
 volumes:
   cassandra_data:
