@@ -11,6 +11,10 @@ services:
       - 9042:9042
     volumes:
       - cassandra_data:/bitnami
+    environment:
+      - CASSANDRA_USER=user
+      - CASSANDRA_PASS=password
+      - CASSANDRA_CQL_PORT_NUMBER=9042
   mqtt-connector:
     container_name: connector
     build: ./mqtt-connector
