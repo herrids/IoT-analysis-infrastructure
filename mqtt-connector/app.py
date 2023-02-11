@@ -3,7 +3,7 @@ from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
 import datetime
 
-def receive(db_session):
+def receive():
     client = mqtt.Client()
 
     def on_connect(client, userdata, flags, rc):
@@ -14,9 +14,10 @@ def receive(db_session):
 
     def on_message(client, userdata, msg):
         print(msg.topic + " " + msg.payload)
+        db = connect_db()
         query = "INSERT INTO sensor_data (sensorName, sensorValue, timestamp)"
         query = query + " VALUES (%s, %s, %s)"
-        db_session.execute(query, (msg.topic, msg.payload, datetime.utcnow()))
+        db.execute(query, (msg.topic, msg.payload, datetime.utcnow()))
 
     client.on_message = on_message
 
@@ -25,7 +26,7 @@ def receive(db_session):
 
 def connect_db():
     auth_provider = PlainTextAuthProvider(username='username', password='password')
-    cluster = Cluster(['cassandra'],port=9042,auth_provider = auth_provider)
+    cluster = Cluster(['cassandra'], port=9042, auth_provider = auth_provider)
     session = cluster.connect()
     try:
         session.execute("""
@@ -50,5 +51,5 @@ def connect_db():
         print(e)
 
 if __name__ == "__main__":
-    db = connect_db()
-    receive(db)
+    #db = connect_db()
+    receive()
