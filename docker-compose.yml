@@ -16,6 +16,8 @@ services:
     build: ./mqtt-connector
     networks:
       - app-tier
+    ports:
+      - 8000:8000
     depends_on:
       - cassandra
 
