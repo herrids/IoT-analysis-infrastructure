@@ -39,7 +39,7 @@ def connect_db():
         session.execute("""
             CREATE TABLE IF NOT EXISTS sensor_data (
                 sensorName VARCHAR,
-                sensorValue DECIMAL,
+                sensorValue VARCHAR,
                 timestamp TIMESTAMP,
                 PRIMARY KEY (sensorName, timestamp)
             )
