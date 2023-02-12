@@ -1,4 +1,4 @@
-version: '2.1'
+version: '3'
 
 services:
   cassandra:
@@ -11,11 +11,6 @@ services:
       - 9042:9042
     volumes:
       - cassandra_data:/bitnami
-    healthcheck:
-      test: [ "CMD", "/opt/bitnami/cassandra/bin/cqlsh", "-u cassandra", "-p cassandra" ,"-e \"describe keyspaces\"" ]
-      interval: 15s
-      timeout: 10s
-      retries: 10
   mqtt-connector:
     container_name: connector
     build: ./mqtt-connector
@@ -24,8 +19,7 @@ services:
     ports:
       - 8000:8000
     depends_on:
-      cassandra:
-        condition: service_healthy
+      - cassandra
     restart: on-failure
 
 volumes:
