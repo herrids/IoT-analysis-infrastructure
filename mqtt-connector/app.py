@@ -13,7 +13,7 @@ def receive(db_session):
     client.on_connect = on_connect
 
     def on_message(client, userdata, msg):
-        print(msg.topic + " " + msg.payload)
+        print(msg.topic + " " + str(msg.payload))
         query = "INSERT INTO sensor_data (sensorName, sensorValue, timestamp)"
         query = query + " VALUES (%s, %s, %s)"
         db_session.execute(query, (msg.topic, msg.payload, datetime.utcnow()))
@@ -40,7 +40,7 @@ def connect_db():
             CREATE TABLE IF NOT EXISTS sensor_data (
                 sensorName VARCHAR,
                 sensorValue DECIMAL,
-                timestamp DATETIME,
+                timestamp TIMESTAMP,
                 PRIMARY KEY (sensorName, timestamp)
             )
         """)
