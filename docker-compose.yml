@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 
 services:
   cassandra:
@@ -24,7 +24,8 @@ services:
     ports:
       - 8000:8000
     depends_on:
-      - cassandra
+      cassandra:
+        condition: service_healthy
     restart: on-failure
 
 volumes:
