@@ -13,11 +13,9 @@ def receive(db_session):
     client.on_connect = on_connect
 
     def on_message(client, userdata, msg):
-        print(msg.topic)
-        print(str(msg.payload)[2:-1])
         query = "INSERT INTO sensor_data (sensorName, sensorValue, timestamp)"
         query = query + " VALUES (%s, %s, %s)"
-        #db_session.execute(query, (msg.topic, str(msg.payload), datetime.utcnow()))
+        db_session.execute(query, (msg.topic, str(msg.payload)[2:-1], datetime.utcnow()))
 
     client.on_message = on_message
 
