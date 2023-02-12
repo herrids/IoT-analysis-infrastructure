@@ -1,7 +1,7 @@
 import paho.mqtt.client as mqtt
 from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
-import datetime
+from datetime import datetime
 
 def receive(db_session):
     client = mqtt.Client()
@@ -16,7 +16,7 @@ def receive(db_session):
         print(msg.topic + " " + str(msg.payload))
         query = "INSERT INTO sensor_data (sensorName, sensorValue, timestamp)"
         query = query + " VALUES (%s, %s, %s)"
-        db_session.execute(query, (msg.topic, msg.payload, datetime.utcnow()))
+        db_session.execute(query, (msg.topic, str(msg.payload), datetime.utcnow()))
 
     client.on_message = on_message
 
