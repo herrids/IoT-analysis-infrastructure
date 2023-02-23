@@ -3,7 +3,7 @@ from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
 from datetime import datetime
 
-def receive(db_session):
+def receive():
     client = mqtt.Client()
 
     def on_connect(client, userdata, flags, rc):
@@ -13,6 +13,7 @@ def receive(db_session):
     client.on_connect = on_connect
 
     def on_message(client, userdata, msg):
+        db_session = connect_db()
         query = "INSERT INTO sensor_data (sensorName, sensorValue, timestamp)"
         query = query + " VALUES (%s, %s, %s)"
         db_session.execute(query, (msg.topic, str(msg.payload)[2:-1], datetime.utcnow()))
@@ -24,18 +25,22 @@ def receive(db_session):
 
 def connect_db():
     auth_provider = PlainTextAuthProvider(username='cassandra', password='cassandra')
-    cluster = Cluster(['cassandra'], port=9042, auth_provider = auth_provider)
+    cluster = Cluster(['127.0.0.1'], port=9042, auth_provider = auth_provider)
     session = cluster.connect(wait_for_all_pools=True)
+    return session
+
+def init_db():
+    db_session = connect_db()
     try:
-        session.execute("""
+        db_session.execute("""
             CREATE KEYSPACE IF NOT EXISTS myno 
             WITH REPLICATION = 
             { 'class' : 'SimpleStrategy', 'replication_factor' : 1 }
         """)
 
-        session.set_keyspace('myno')
+        db_session.set_keyspace('myno')
 
-        session.execute("""
+        db_session.execute("""
             CREATE TABLE IF NOT EXISTS sensor_data (
                 sensorName VARCHAR,
                 sensorValue VARCHAR,
@@ -43,11 +48,10 @@ def connect_db():
                 PRIMARY KEY (sensorName, timestamp)
             )
         """)
-        return session
-
     except Exception as e:
         print(e)
 
+
 if __name__ == "__main__":
-    db = connect_db()
-    receive(db)
+    init_db()
+    receive()
