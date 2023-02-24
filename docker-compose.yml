@@ -1,16 +1,20 @@
-version: '3'
+version: '2.1'
 
 services:
   cassandra:
     container_name: cassandra
     hostname: cassandra
     image: bitnami/cassandra:latest
+    environment:
+      - CASSANDRA_USER=hoske1
+      - CASSANDRA_PASSWORD=aSecretVice
     networks:
       - app-tier
     ports:
       - 9042:9042
     volumes:
       - cassandra_data:/bitnami
+    restart: on-failure
   mqtt-connector:
     container_name: connector
     build: ./mqtt-connector
