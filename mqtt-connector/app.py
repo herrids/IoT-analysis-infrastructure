@@ -2,7 +2,6 @@ import paho.mqtt.client as mqtt
 from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
 from datetime import datetime
-import os
 
 def receive():
     client = mqtt.Client()
@@ -25,9 +24,7 @@ def receive():
     client.loop_forever()
 
 def connect_db():
-    auth_provider = PlainTextAuthProvider(
-        username=os.environ["CASSANDRA_USER"], 
-        password=os.environ["CASSANDRA_PASSWORD"])
+    auth_provider = PlainTextAuthProvider(username='cassandra', password='cassandra')
     cluster = Cluster(['cassandra'], port=9042, auth_provider = auth_provider)
     session = cluster.connect(wait_for_all_pools=True)
     return session
