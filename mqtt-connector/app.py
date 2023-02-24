@@ -26,8 +26,8 @@ def receive():
 
 def connect_db():
     auth_provider = PlainTextAuthProvider(
-        username=os.eviron["CASSANDRA_USER"], 
-        password=os.eviron["CASSANDRA_PASSWORD"])
+        username=os.environ["CASSANDRA_USER"], 
+        password=os.environ["CASSANDRA_PASSWORD"])
     cluster = Cluster(['cassandra'], port=9042, auth_provider = auth_provider)
     session = cluster.connect(wait_for_all_pools=True)
     return session
