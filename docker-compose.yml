@@ -18,6 +18,9 @@ services:
   mqtt-connector:
     container_name: connector
     build: ./mqtt-connector
+    environment:
+      - CASSANDRA_USER=hoske1
+      - CASSANDRA_PASSWORD=aSecretVice
     networks:
       - app-tier
     ports:
