@@ -25,7 +25,7 @@ def on_message(client, userdata, msg):
         # format the datetime object as a string and remove trailing zeros
         now_utc = datetime.utcnow()
         now_utc_str = now_utc.strftime('%Y-%m-%d %H:%M:%S.%f')
-        now_utc_str = now_utc_str[:-8]
+        now_utc_str = now_utc_str[:-3]
         print(now_utc_str)
 
         # Create a table for the sensor if it does not exist already
