@@ -28,7 +28,7 @@ def connect_db():
 # Create a table in the Cassandra database for a sensor
 def create_sensor_table(name, db_session):
     db_session.execute(f"""
-        CREATE TABLE IF NOT EXISTS sensor.{name} (
+        CREATE TABLE IF NOT EXISTS sensor_{name} (
             sensornumber text,
             board_uuid text,
             timestamp timestamp,
