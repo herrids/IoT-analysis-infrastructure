@@ -32,7 +32,7 @@ def create_sensor_table(name, db_session):
             sensornumber text,
             board_uuid text,
             timestamp timestamp,
-            sensorvalue double,
+            sensorvalue text,
             PRIMARY KEY (sensornumber, board_uuid, timestamp)
         )
     """)
