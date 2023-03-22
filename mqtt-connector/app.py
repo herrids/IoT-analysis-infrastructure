@@ -26,7 +26,6 @@ def on_message(client, userdata, msg):
         now_utc = datetime.utcnow()
         now_utc_str = now_utc.strftime('%Y-%m-%d %H:%M:%S.%f')
         now_utc_str = now_utc_str[:-3]
-        print(now_utc_str)
 
         # Create a table for the sensor if it does not exist already
         create_sensor_table(sensor_type, db_session)
