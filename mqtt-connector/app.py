@@ -1,78 +1,64 @@
-import paho.mqtt.client as mqtt
-from cassandra.cluster import Cluster
-from cassandra.auth import PlainTextAuthProvider
-from datetime import datetime
+# Import required libraries
+import paho.mqtt.client as mqtt # MQTT client library
+from datetime import datetime # Datetime library to handle timestamp
+from db import connect_db, init_db, create_sensor_table # Custom functions to initialize and connect to database
 
-def receive(db_session):
+# Connect to the database
+db_session = connect_db()
+
+# This function is called when the client connects to the broker
+def on_connect(client, userdata, flags, rc):
+    print("Connected with result code " + str(rc))
+    # Subscribe to all topics
+    client.subscribe("#")
+
+# This function is called when a message is received from the broker
+def on_message(client, userdata, msg):
+    # Split the topic into its individual parts
+    parts = msg.topic.split("/")
+    # Check if the topic is related to a sensor
+    if parts[0] == "sensor":
+        # Extract the sensor type and number, and board UUID from the topic
+        sensor_type, sensor_number = parts[2].split("_")
+        board_uuid = parts[3]
+
+        # Create a table for the sensor if it does not exist already
+        create_sensor_table(sensor_type, db_session)
+
+        # Insert the sensor data into the database
+        query = f"""
+            INSERT INTO sensor.{sensor_type} (
+                sensornumber, 
+                board_uuid, 
+                timestamp, 
+                sensorvalue)
+            VALUES (%s, %s, %s, %s)
+            """
+        db_session.execute(query, (
+            sensor_number, 
+            board_uuid, 
+            datetime.utcnow(), 
+            str(msg.payload)[2:-1]
+            ))
+
+# This function is responsible for receiving MQTT messages
+def receive():
+    # Create a new MQTT client
     client = mqtt.Client()
 
-    def on_connect(client, userdata, flags, rc):
-        print("Connected with result code " + str(rc))
-        client.subscribe("#")
-
+    # Set the on_connect and on_message callbacks
     client.on_connect = on_connect
-
-    def on_message(client, userdata, msg):
-        parts = msg.topic.split("/")
-        if parts[0] == "sensor":
-            sensor_type, sensor_number = parts[2].split("_")
-            board_uuid = parts[3]
-
-            create_sensor_table(sensor_type)
-
-            query = """
-                INSERT INTO sensor.{0} (
-                    sensornumber, 
-                    board_uuid, 
-                    timestamp, 
-                    sensorvalue)
-                """.format(sensor_type)
-            query = query + " VALUES (%s, %s, %s, %s)"
-            db_session.execute(query, (
-                sensor_number, 
-                board_uuid, 
-                datetime.utcnow(), 
-                str(msg.payload)[2:-1]
-                ))
-
     client.on_message = on_message
 
+    # Connect to the MQTT broker
     client.connect("10.3.24.115", 1883, 60)
+    
+    # Start the MQTT client loop
     client.loop_forever()
 
-def connect_db():
-    auth_provider = PlainTextAuthProvider(username='cassandra', password='cassandra')
-    cluster = Cluster(['cassandra'], port=9042, auth_provider = auth_provider)
-    session = cluster.connect(wait_for_all_pools=True)
-    session.set_keyspace('myno')
-    return session
-
-def create_sensor_table(name, db_session):
-    db_session.execute("""
-    CREATE TABLE IF NOT EXISTS sensor.{0} (
-        sensornumber text,
-        board_uuid text,
-        timestamp timestamp,
-        sensorvalue double,
-        PRIMARY KEY (sensornumber, uuid, timestamp)
-        )
-    """.format(name))
-
-def init_db(db_session):
-    try:
-        db_session.execute("""
-            CREATE KEYSPACE IF NOT EXISTS myno 
-            WITH REPLICATION = 
-            { 'class' : 'SimpleStrategy', 'replication_factor' : 1 }
-        """)
-
-        db_session.set_keyspace('myno')
-
-    except Exception as e:
-        print(e)
-
-
 if __name__ == "__main__":
-    db_session = connect_db()
+    # Initialize the database tables
     init_db(db_session)
-    receive(db_session)
+    
+    # Start receiving MQTT messages
+    receive()
