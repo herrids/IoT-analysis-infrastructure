@@ -27,7 +27,7 @@ def on_message(client, userdata, msg):
 
         # Insert the sensor data into the database
         query = f"""
-            INSERT INTO sensor.{sensor_type} (
+            INSERT INTO sensor_{sensor_type} (
                 sensornumber, 
                 board_uuid, 
                 timestamp, 
