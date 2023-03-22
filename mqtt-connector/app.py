@@ -22,6 +22,11 @@ def on_message(client, userdata, msg):
         sensor_type, sensor_number = parts[2].split("_")
         board_uuid = parts[3]
 
+        # format the datetime object as a string and remove trailing zeros and dot if no remaining digit
+        now_utc = datetime.utcnow()
+        now_utc_str = now_utc.strftime('%Y-%m-%d %H:%M:%S.%f')
+        now_utc_str = now_utc_str.rstrip('0').rstrip('.').rstrip('+')
+
         # Create a table for the sensor if it does not exist already
         create_sensor_table(sensor_type, db_session)
 
@@ -37,7 +42,7 @@ def on_message(client, userdata, msg):
         db_session.execute(query, (
             sensor_number, 
             board_uuid, 
-            datetime.utcnow(), 
+            now_utc_str, 
             str(msg.payload)[2:-1]
             ))
 
