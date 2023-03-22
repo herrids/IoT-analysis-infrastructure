@@ -1,7 +1,7 @@
 # Import required libraries
 import paho.mqtt.client as mqtt # MQTT client library
 from datetime import datetime # Datetime library to handle timestamp
-from db import connect_db, init_db, create_sensor_table # Custom functions to initialize and connect to database
+from db import connect_db, create_sensor_table # Custom functions to initialize and connect to database
 
 # Connect to the database
 db_session = connect_db()
@@ -57,8 +57,5 @@ def receive():
     client.loop_forever()
 
 if __name__ == "__main__":
-    # Initialize the database tables
-    init_db(db_session)
-    
     # Start receiving MQTT messages
     receive()
