@@ -3,7 +3,7 @@ from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
 from datetime import datetime
 
-def receive():
+def receive(db_session):
     client = mqtt.Client()
 
     def on_connect(client, userdata, flags, rc):
@@ -13,10 +13,27 @@ def receive():
     client.on_connect = on_connect
 
     def on_message(client, userdata, msg):
-        db_session = connect_db()
-        query = "INSERT INTO sensor_data (sensorName, sensorValue, timestamp)"
-        query = query + " VALUES (%s, %s, %s)"
-        db_session.execute(query, (msg.topic, str(msg.payload)[2:-1], datetime.utcnow()))
+        parts = msg.topic.split("/")
+        if parts[0] == "sensor":
+            sensor_type, sensor_number = parts[2].split("_")
+            board_uuid = parts[3]
+
+            create_sensor_table(sensor_type)
+
+            query = """
+                INSERT INTO sensor.{0} (
+                    sensornumber, 
+                    board_uuid, 
+                    timestamp, 
+                    sensorvalue)
+                """.format(sensor_type)
+            query = query + " VALUES (%s, %s, %s, %s)"
+            db_session.execute(query, (
+                sensor_number, 
+                board_uuid, 
+                datetime.utcnow(), 
+                str(msg.payload)[2:-1]
+                ))
 
     client.on_message = on_message
 
@@ -30,8 +47,18 @@ def connect_db():
     session.set_keyspace('myno')
     return session
 
-def init_db():
-    db_session = connect_db()
+def create_sensor_table(name, db_session):
+    db_session.execute("""
+    CREATE TABLE IF NOT EXISTS sensor.{0} (
+        sensornumber text,
+        board_uuid text,
+        timestamp timestamp,
+        sensorvalue double,
+        PRIMARY KEY (sensornumber, uuid, timestamp)
+        )
+    """.format(name))
+
+def init_db(db_session):
     try:
         db_session.execute("""
             CREATE KEYSPACE IF NOT EXISTS myno 
@@ -41,18 +68,11 @@ def init_db():
 
         db_session.set_keyspace('myno')
 
-        db_session.execute("""
-            CREATE TABLE IF NOT EXISTS sensor_data (
-                sensorName VARCHAR,
-                sensorValue VARCHAR,
-                timestamp TIMESTAMP,
-                PRIMARY KEY (sensorName, timestamp)
-            )
-        """)
     except Exception as e:
         print(e)
 
 
 if __name__ == "__main__":
-    init_db()
-    receive()
+    db_session = connect_db()
+    init_db(db_session)
+    receive(db_session)
