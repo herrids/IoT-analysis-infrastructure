@@ -20,10 +20,11 @@ def connect_db():
 
         # Set the keyspace for the Cassandra session
         session.set_keyspace('myno')
+        # Return the Cassandra session
+        return session
+    
     except Exception as e:
         print(e)
-    # Return the Cassandra session
-    return session
 
 # Create a table in the Cassandra database for a sensor
 def create_sensor_table(name, db_session):
