@@ -1,10 +1,10 @@
 # Import required libraries
+import json
 import paho.mqtt.client as mqtt # MQTT client library
 from datetime import datetime # Datetime library to handle timestamp
-from db import connect_db, create_sensor_table # Custom functions to initialize and connect to database
+from kafka import KafkaProducer
 
-# Connect to the database
-db_session = connect_db()
+kafka_producer = KafkaProducer(bootstrap_servers='localhost:9092')
 
 # This function is called when the client connects to the broker
 def on_connect(client, userdata, flags, rc):
@@ -27,24 +27,16 @@ def on_message(client, userdata, msg):
         now_utc_str = now_utc.strftime('%Y-%m-%d %H:%M:%S.%f')
         now_utc_str = now_utc_str[:-3]
 
-        # Create a table for the sensor if it does not exist already
-        create_sensor_table(sensor_type, db_session)
-
-        # Insert the sensor data into the database
-        query = f"""
-            INSERT INTO sensor_{sensor_type} (
-                sensornumber, 
-                board_uuid, 
-                timestamp, 
-                sensorvalue)
-            VALUES (%s, %s, %s, %s)
-            """
-        db_session.execute(query, (
+        json_data = json.dumps([
+            sensor_type, 
             sensor_number, 
             board_uuid, 
-            now_utc_str, 
-            str(msg.payload)[2:-1]
-            ))
+            now_utc_str,
+            str(msg.payload)[2:-1]])
+        
+        # Publish the MQTT message to the Kafka topic
+        kafka_producer.send("sensor-data-topic", value=json_data.encode('utf-8'))
+        kafka_producer.flush()  # Ensure the message is sent immediately
 
 # This function is responsible for receiving MQTT messages
 def receive():
