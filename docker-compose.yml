@@ -9,6 +9,8 @@ services:
       ALLOW_ANONYMOUS_LOGIN: 'yes'
     ports:
       - "2181:2181"
+    networks:
+      - app-tier
   kafka:
     image: bitnami/kafka:latest
     hostname: kafka
