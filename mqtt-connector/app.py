@@ -4,7 +4,7 @@ import paho.mqtt.client as mqtt # MQTT client library
 from datetime import datetime # Datetime library to handle timestamp
 from kafka import KafkaProducer
 
-kafka_producer = KafkaProducer(bootstrap_servers='localhost:9092')
+kafka_producer = KafkaProducer(bootstrap_servers='kafka:9092')
 
 # This function is called when the client connects to the broker
 def on_connect(client, userdata, flags, rc):
