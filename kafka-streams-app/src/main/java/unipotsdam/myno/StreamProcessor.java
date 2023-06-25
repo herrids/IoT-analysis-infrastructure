@@ -13,6 +13,8 @@ public class StreamProcessor {
     private static final String INPUT_TOPIC = "sensor-data-topic";
     private static final String CASSANDRA_DB = "cassandra";
     private static final String KEYSPACE = "myno";
+    private static final String CASSANDRA_USER = "hoske1";
+    private static final String CASSANDRA_PASS = "aSecretVice";
 
     public static void main(String[] args) {
         Properties props = new Properties();
@@ -22,7 +24,7 @@ public class StreamProcessor {
         props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
 
         CassandraConnector connector = new CassandraConnector();
-        connector.connect(CASSANDRA_DB,KEYSPACE);
+        connector.connect(CASSANDRA_DB,KEYSPACE, CASSANDRA_USER, CASSANDRA_PASS);
         CassandraDao dao = new CassandraDao(connector.getSession());
 
         StreamsBuilder builder = new StreamsBuilder();
