@@ -57,7 +57,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.example.StreamProcessor</mainClass>
+                            <mainClass>unipotsdam.myno.StreamProcessor</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
