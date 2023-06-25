@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>kafka-streams-APP</artifactId>
+    <artifactId>kafka-streams-App</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 
@@ -40,6 +40,7 @@
     </dependencies>
 
     <build>
+        <finalName>kafka-streams-app</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
