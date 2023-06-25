@@ -11,8 +11,9 @@ services:
       - "2181:2181"
     networks:
       - app-tier
+
   kafka:
-    image: bitnami/kafka:latest
+    image: bitnami/kafka:3.4.0
     hostname: kafka
     container_name: kafka
     ports:
@@ -28,6 +29,7 @@ services:
       KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://127.0.0.1:9092
     networks:
       - app-tier
+
   cassandra:
     container_name: cassandra
     hostname: cassandra
@@ -42,6 +44,7 @@ services:
     volumes:
       - cassandra_data:/bitnami
     restart: on-failure
+
   mqtt-connector:
     container_name: mqtt-connector
     build: ./mqtt-connector
@@ -55,6 +58,15 @@ services:
     depends_on:
       - kafka
     restart: on-failure
+
+  kafka-streams-app:
+    container_name: kafka-streams-app
+    build: ./kafka-streams-app
+    depends_on:
+      - kafka
+      - cassandra
+    networks:
+      - app-tier
 
 volumes:
   cassandra_data:

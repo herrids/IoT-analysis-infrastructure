@@ -14,7 +14,6 @@ def on_connect(client, userdata, flags, rc):
 
 # This function is called when a message is received from the broker
 def on_message(client, userdata, msg):
-    print(msg.topic)
     # Split the topic into its individual parts
     parts = msg.topic.split("/")
     # Check if the topic is related to a sensor
