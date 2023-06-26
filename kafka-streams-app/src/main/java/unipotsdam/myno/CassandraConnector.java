@@ -6,12 +6,14 @@ import java.net.InetSocketAddress;
 public class CassandraConnector {
     private CqlSession session;
 
-    public void connect(String node, String keyspace) {
+    public void connect(String node, String keyspace, String username, String password) {
         session = CqlSession.builder()
-            .addContactPoint(new InetSocketAddress(node, 9042))
-            .withKeyspace(keyspace)
-            .build();
+                    .addContactPoint(new InetSocketAddress(node, 9042))
+                    .withKeyspace(keyspace)
+                    .withAuthCredentials(username, password)
+                    .build();
     }
+    
 
     public CqlSession getSession() {
         return this.session;

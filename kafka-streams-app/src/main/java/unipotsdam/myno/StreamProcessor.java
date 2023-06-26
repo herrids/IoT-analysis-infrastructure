@@ -24,7 +24,7 @@ public class StreamProcessor {
         props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
 
         CassandraConnector connector = new CassandraConnector();
-        connector.connect(CASSANDRA_DB,KEYSPACE, CASSANDRA_USER, CASSANDRA_PASS);
+        connector.connect(CASSANDRA_DB, KEYSPACE, CASSANDRA_USER, CASSANDRA_PASS);
         CassandraDao dao = new CassandraDao(connector.getSession());
 
         StreamsBuilder builder = new StreamsBuilder();
