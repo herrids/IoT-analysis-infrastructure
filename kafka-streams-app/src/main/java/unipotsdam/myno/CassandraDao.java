@@ -22,6 +22,7 @@ public class CassandraDao {
             String insertDataQuery = String.format("INSERT INTO sensor_%s (sensornumber, board_uuid, timestamp, sensorvalue) VALUES (?, ?, ?, ?);", sensorType);
             session.execute(insertDataQuery, sensorNumber, boardUuid, timestamp, value);
         } catch (com.datastax.oss.driver.api.core.DriverException e) {
+            logger.debug(sensorNumber, boardUuid, timestamp, value);
             logger.error("An error occurred while saving sensor data", e);
         }
     }
