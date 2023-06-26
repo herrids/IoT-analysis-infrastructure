@@ -1,9 +1,12 @@
 package unipotsdam.myno;
 
 import com.datastax.oss.driver.api.core.CqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CassandraDao {
     private final CqlSession session;
+    private static final Logger logger = LoggerFactory.getLogger(CassandraDao.class);
 
     public CassandraDao(CqlSession session) {
         this.session = session;
@@ -19,8 +22,7 @@ public class CassandraDao {
             String insertDataQuery = String.format("INSERT INTO sensor_%s (sensornumber, board_uuid, timestamp, sensorvalue) VALUES (?, ?, ?, ?);", sensorType);
             session.execute(insertDataQuery, sensorNumber, boardUuid, timestamp, value);
         } catch (com.datastax.oss.driver.api.core.DriverException e) {
-            // Handle the exception. Maybe log it, or send a message somewhere notifying you of the issue.
-            e.printStackTrace();
+            logger.error("An error occurred while saving sensor data", e);
         }
     }
     
