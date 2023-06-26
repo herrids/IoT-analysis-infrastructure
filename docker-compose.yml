@@ -34,9 +34,6 @@ services:
     container_name: cassandra
     hostname: cassandra
     image: bitnami/cassandra:latest
-    environment:
-      - CASSANDRA_USER=hoske1
-      - CASSANDRA_PASSWORD=aSecretVice
     networks:
       - app-tier
     ports:
@@ -48,9 +45,6 @@ services:
   mqtt-connector:
     container_name: mqtt-connector
     build: ./mqtt-connector
-    environment:
-      - CASSANDRA_USER=hoske1
-      - CASSANDRA_PASSWORD=aSecretVice
     networks:
       - app-tier
     ports:
