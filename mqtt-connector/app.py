@@ -4,7 +4,8 @@ import paho.mqtt.client as mqtt # MQTT client library
 from datetime import datetime # Datetime library to handle timestamp
 from kafka import KafkaProducer
 
-kafka_producer = KafkaProducer(bootstrap_servers='kafka:9092')
+kafka_producer = KafkaProducer(bootstrap_servers='kafka:9092', 
+                               value_serializer=lambda v: json.dumps(v).encode('utf-8'))
 
 # This function is called when the client connects to the broker
 def on_connect(client, userdata, flags, rc):
@@ -33,9 +34,17 @@ def on_message(client, userdata, msg):
             board_uuid, 
             now_utc_str,
             str(msg.payload)[2:-1]])
+
+        data = {
+            "sensorType": sensor_type,
+            "sensorNumber": sensor_number,
+            "boardUuid": board_uuid,
+            "timestamp": now_utc_str,
+            "value": str(msg.payload)[2:-1]
+        }
         
         # Publish the MQTT message to the Kafka topic
-        kafka_producer.send("sensor-data-topic", value=json_data.encode('utf-8'))
+        kafka_producer.send("sensor-data-topic", value=data)
         kafka_producer.flush()  # Ensure the message is sent immediately
 
 # This function is responsible for receiving MQTT messages

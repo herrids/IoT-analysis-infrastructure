@@ -5,6 +5,8 @@ import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.kstream.KStream;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.Properties;
 
@@ -31,12 +33,16 @@ public class StreamProcessor {
         KStream<String, String> source = builder.stream(INPUT_TOPIC);
 
         source.foreach((key, value) -> {
-            System.out.println(key);
-            System.out.println(value);
             // Parse your value here, e.g. convert JSON to an object.
-            // Save to Cassandra.
-            dao.saveSensorData(key, Double.parseDouble(value));
-            // Calculate min, max, mean, and median and update your local state.
+            ObjectMapper objectMapper = new ObjectMapper();
+            SensorData sensorData;
+            try {
+                sensorData = objectMapper.readValue(value, SensorData.class);
+                // Save to Cassandra.
+                dao.saveSensorData(sensorData.getSensorType(), sensorData.getSensorNumber(), sensorData.getBoardUuid(), sensorData.getTimestamp(), sensorData.getValue());
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
         });
 
         KafkaStreams streams = new KafkaStreams(builder.build(), props);
