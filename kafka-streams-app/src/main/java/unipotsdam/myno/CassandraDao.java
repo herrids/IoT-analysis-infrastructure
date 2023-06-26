@@ -13,7 +13,7 @@ public class CassandraDao {
 
     public void saveSensorData(String sensorType, String sensorNumber, String boardUuid, String timestamp, double value) {
         // check if table exists
-        String checkTableQuery = String.format("SELECT table_name FROM system_schema.tables WHERE keyspace_name = 'your_keyspace' AND table_name = 'sensor_%s';", sensorType);
+        String checkTableQuery = String.format("SELECT table_name FROM system_schema.tables WHERE keyspace_name = 'myno' AND table_name = 'sensor_%s';", sensorType);
         ResultSet resultSet = session.execute(checkTableQuery);
         Row row = resultSet.one();
         

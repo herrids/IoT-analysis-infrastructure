@@ -13,10 +13,7 @@ public class CassandraConnector {
                     .withAuthCredentials(username, password)
                     .withLocalDatacenter("datacenter1")
                     .build();
-                    
-        initializeSchema();
-    }
-    
+    } 
 
     public CqlSession getSession() {
         return this.session;
@@ -24,12 +21,5 @@ public class CassandraConnector {
 
     public void close() {
         session.close();
-    }
-
-    public void initializeSchema() {
-        session.execute("CREATE KEYSPACE IF NOT EXISTS myno WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 }");
-        session.execute("USE myno");
-        session.execute("CREATE TABLE IF NOT EXISTS sensor_data (sensor_id text, value double, PRIMARY KEY (sensor_id))");
-    }
-    
+    } 
 }
