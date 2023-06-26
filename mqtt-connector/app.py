@@ -2,6 +2,7 @@
 import json
 import paho.mqtt.client as mqtt # MQTT client library
 from datetime import datetime # Datetime library to handle timestamp
+import time
 from kafka import KafkaProducer
 
 kafka_producer = KafkaProducer(bootstrap_servers='kafka:9092', 
@@ -25,15 +26,14 @@ def on_message(client, userdata, msg):
 
         # format the datetime object as a string and remove trailing zeros
         now_utc = datetime.utcnow()
-        now_utc_str = now_utc.strftime('%Y-%m-%d %H:%M:%S.%f')
-        now_utc_str = now_utc_str[:-3]
+        timestamp = int(time.mktime(now_utc.timetuple())) * 1000
 
 
         data = {
             "sensorType": sensor_type,
             "sensorNumber": sensor_number,
             "boardUuid": board_uuid,
-            "timestamp": now_utc_str,
+            "timestamp": timestamp,
             "value": str(msg.payload)[2:-1]
         }
 
