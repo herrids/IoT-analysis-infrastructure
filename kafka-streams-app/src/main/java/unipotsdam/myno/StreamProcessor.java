@@ -31,6 +31,8 @@ public class StreamProcessor {
         KStream<String, String> source = builder.stream(INPUT_TOPIC);
 
         source.foreach((key, value) -> {
+            System.out.println(key);
+            System.out.println(value);
             // Parse your value here, e.g. convert JSON to an object.
             // Save to Cassandra.
             dao.saveSensorData(key, Double.parseDouble(value));
