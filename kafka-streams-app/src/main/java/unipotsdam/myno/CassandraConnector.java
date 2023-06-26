@@ -11,6 +11,7 @@ public class CassandraConnector {
                     .addContactPoint(new InetSocketAddress(node, 9042))
                     .withKeyspace(keyspace)
                     .withAuthCredentials(username, password)
+                    .withLocalDatacenter("datacenter1")
                     .build();
     }
     
