@@ -12,7 +12,7 @@ public class CassandraDao {
         this.session = session;
     }
 
-    public void saveSensorData(String sensorType, String sensorNumber, String boardUuid, String timestamp, double value) {
+    public void saveSensorData(String sensorType, String sensorNumber, String boardUuid, Long timestamp, double value) {
         try {
             // if table doesn't exist, create it
             String createTableQuery = String.format("CREATE TABLE IF NOT EXISTS sensor_%s (sensornumber text, board_uuid text, timestamp timestamp, sensorvalue double, PRIMARY KEY (sensornumber, timestamp));", sensorType);
@@ -24,7 +24,7 @@ public class CassandraDao {
         } catch (com.datastax.oss.driver.api.core.DriverException e) {
             logger.debug(sensorNumber);
             logger.debug(boardUuid);
-            logger.debug(timestamp);
+            logger.debug(Long.toString(timestamp));
             logger.debug(Double.toString(value));
             logger.error("An error occurred while saving sensor data", e);
         }

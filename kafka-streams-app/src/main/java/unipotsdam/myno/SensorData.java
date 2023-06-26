@@ -4,7 +4,7 @@ public class SensorData {
     private String sensorType;
     private String sensorNumber;
     private String boardUuid;
-    private String timestamp;
+    private Long timestamp;
     private double value;
 
     public String getSensorType() {
@@ -27,7 +27,7 @@ public class SensorData {
         return boardUuid;
     }
 
-    public String getTimestamp() {
+    public Long getTimestamp() {
         return timestamp;
     }
 
