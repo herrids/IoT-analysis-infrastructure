@@ -28,12 +28,6 @@ def on_message(client, userdata, msg):
         now_utc_str = now_utc.strftime('%Y-%m-%d %H:%M:%S.%f')
         now_utc_str = now_utc_str[:-3]
 
-        json_data = json.dumps([
-            sensor_type, 
-            sensor_number, 
-            board_uuid, 
-            now_utc_str,
-            str(msg.payload)[2:-1]])
 
         data = {
             "sensorType": sensor_type,
@@ -42,6 +36,8 @@ def on_message(client, userdata, msg):
             "timestamp": now_utc_str,
             "value": str(msg.payload)[2:-1]
         }
+
+        print(data)
         
         # Publish the MQTT message to the Kafka topic
         kafka_producer.send("sensor-data-topic", value=data)
