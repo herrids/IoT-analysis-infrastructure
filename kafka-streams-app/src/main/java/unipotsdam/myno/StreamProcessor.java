@@ -13,8 +13,8 @@ public class StreamProcessor {
     private static final String INPUT_TOPIC = "sensor-data-topic";
     private static final String CASSANDRA_DB = "cassandra";
     private static final String KEYSPACE = "myno";
-    private static final String CASSANDRA_USER = "hoske1";
-    private static final String CASSANDRA_PASS = "aSecretVice";
+    private static final String CASSANDRA_USER = "cassandra";
+    private static final String CASSANDRA_PASS = "cassandra";
 
     public static void main(String[] args) {
         Properties props = new Properties();
