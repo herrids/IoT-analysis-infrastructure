@@ -40,10 +40,7 @@ services:
       - 9042:9042
     volumes:
       - cassandra_data:/bitnami
-      - ./init_scripts/init-cassandra.sh:/docker-entrypoint-initdb.d/init-cassandra.sh
     restart: on-failure
-    command: ["/bin/bash", "/docker-entrypoint-initdb.d/init-cassandra.sh"]
-
 
   mqtt-connector:
     container_name: mqtt-connector
