@@ -1,5 +1,7 @@
 package unipotsdam.myno;
 
+import java.sql.Date;
+
 public class SensorData {
     private String sensorType;
     private Integer sensorNumber;
@@ -19,8 +21,8 @@ public class SensorData {
         return boardUuid;
     }
 
-    public Long getTimestamp() {
-        return timestamp;
+    public Date getTimestamp() {
+        return new Date(timestamp);
     }
 
     public double getValue() {

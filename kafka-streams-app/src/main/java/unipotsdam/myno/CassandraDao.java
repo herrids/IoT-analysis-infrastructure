@@ -6,6 +6,7 @@ import com.datastax.oss.driver.api.core.cql.PreparedStatement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.time.LocalDate;
+import java.util.Date;
 
 public class CassandraDao {
     private final CqlSession session;
@@ -20,7 +21,7 @@ public class CassandraDao {
         session.execute(createTableQuery);
     }
 
-    public void saveSensorData(String sensorType, int sensorNumber, String boardUuid, Long timestamp, double value) {
+    public void saveSensorData(String sensorType, int sensorNumber, String boardUuid, Date timestamp, double value) {
         logger.debug(sensorType + ", " + sensorNumber + ", " + boardUuid + ", " + timestamp + ", " + value);
         try {
             String insertDataQuery = String.format("INSERT INTO sensor_%s (sensor_number, board_uuid, timestamp, sensor_value) VALUES (?, ?, ?, ?);", sensorType);
