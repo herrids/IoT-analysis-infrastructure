@@ -5,7 +5,6 @@ import com.datastax.oss.driver.api.core.CqlSession;
 import com.datastax.oss.driver.api.core.cql.PreparedStatement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.sql.Date;
 import java.time.LocalDate;
 
 public class CassandraDao {
@@ -26,7 +25,7 @@ public class CassandraDao {
             String insertDataQuery = String.format("INSERT INTO sensor_%s (sensor_number, board_uuid, timestamp, sensor_value) VALUES (?, ?, ?, ?);", sensorType);
             PreparedStatement preparedStatement = session.prepare(insertDataQuery);
 
-            BoundStatement boundStatement = preparedStatement.bind(sensorNumber, boardUuid, new Date(timestamp), value);
+            BoundStatement boundStatement = preparedStatement.bind(sensorNumber, boardUuid, timestamp, value);
             session.execute(boundStatement);
         } catch (com.datastax.oss.driver.api.core.DriverException e) {
             logger.error("An error occurred while saving sensor data", e);
@@ -38,7 +37,7 @@ public class CassandraDao {
             String insertDataQuery = "INSERT INTO sensor_statistics (sensor_type, sensor_number, date, min_value, max_value, mean_value, median_value) VALUES (?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement preparedStatement = session.prepare(insertDataQuery);
 
-            BoundStatement boundStatement = preparedStatement.bind(sensorType, sensorNumber, Date.valueOf(date), minValue, maxValue, meanValue, medianValue);
+            BoundStatement boundStatement = preparedStatement.bind(sensorType, sensorNumber, date, minValue, maxValue, meanValue, medianValue);
             session.execute(boundStatement);
         } catch (com.datastax.oss.driver.api.core.DriverException e) {
             logger.error("An error occurred while saving sensor data", e);
