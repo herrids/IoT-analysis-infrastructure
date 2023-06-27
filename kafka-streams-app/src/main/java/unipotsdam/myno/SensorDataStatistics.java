@@ -17,21 +17,21 @@ public class SensorDataStatistics {
 
     public double getMin() {
         if (values.isEmpty()) {
-            return Double.NaN;  // return NaN if no values
+            return Double.NaN;
         }
         return values.get(0);
     }
 
     public double getMax() {
         if (values.isEmpty()) {
-            return Double.NaN;  // return NaN if no values
+            return Double.NaN;
         }
         return values.get(values.size() - 1);
     }
 
     public double getMean() {
         if (values.isEmpty()) {
-            return Double.NaN;  // return NaN if no values
+            return Double.NaN;
         }
         double sum = 0.0;
         for (double value : values) {
@@ -42,7 +42,7 @@ public class SensorDataStatistics {
 
     public double getMedian() {
         if (values.isEmpty()) {
-            return Double.NaN;  // return NaN if no values
+            return Double.NaN;
         }
         int middle = values.size() / 2;
         if (values.size() % 2 == 1) {

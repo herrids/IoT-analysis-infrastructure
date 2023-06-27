@@ -28,16 +28,17 @@ def on_message(client, userdata, msg):
         now_utc = datetime.utcnow()
         timestamp = int(time.mktime(now_utc.timetuple())) * 1000
 
+        parse_to_integer = lambda s: int(s) if s.isdigit() else None
 
         data = {
             "sensorType": sensor_type,
-            "sensorNumber": sensor_number,
+            "sensorNumber": parse_to_integer(sensor_number),
             "boardUuid": board_uuid,
             "timestamp": timestamp,
             "value": str(msg.payload)[2:-1]
         }
 
-        print(data)
+        print(now_utc, data)
         
         # Publish the MQTT message to the Kafka topic
         kafka_producer.send("sensor-data-topic", value=data)

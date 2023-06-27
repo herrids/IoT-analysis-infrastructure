@@ -21,6 +21,7 @@ public class CassandraDao {
     }
 
     public void saveSensorData(String sensorType, int sensorNumber, String boardUuid, Long timestamp, double value) {
+        logger.debug(sensorType + ", " + sensorNumber + ", " + boardUuid + ", " + timestamp + ", " + value);
         try {
             String insertDataQuery = String.format("INSERT INTO sensor_%s (sensor_number, board_uuid, timestamp, sensor_value) VALUES (?, ?, ?, ?);", sensorType);
             PreparedStatement preparedStatement = session.prepare(insertDataQuery);
@@ -33,6 +34,7 @@ public class CassandraDao {
     }
 
     public void saveSensorStatistics(String sensorType, int sensorNumber, LocalDate date, float minValue, float maxValue, float meanValue, float medianValue) {
+        logger.debug(sensorType + ", " + sensorNumber + ", " + date);
         try {
             String insertDataQuery = "INSERT INTO sensor_statistics (sensor_type, sensor_number, date, min_value, max_value, mean_value, median_value) VALUES (?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement preparedStatement = session.prepare(insertDataQuery);
