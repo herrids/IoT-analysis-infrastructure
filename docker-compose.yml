@@ -61,6 +61,7 @@ services:
       - cassandra
     networks:
       - app-tier
+    restart: on-failure
 
 volumes:
   cassandra_data:

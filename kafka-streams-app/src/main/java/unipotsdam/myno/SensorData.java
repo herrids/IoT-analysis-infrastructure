@@ -2,7 +2,7 @@ package unipotsdam.myno;
 
 public class SensorData {
     private String sensorType;
-    private String sensorNumber;
+    private Integer sensorNumber;
     private String boardUuid;
     private Long timestamp;
     private double value;
@@ -11,16 +11,8 @@ public class SensorData {
         return sensorType;
     }
 
-    public void setSensorType(String sensorType) {
-        this.sensorType = sensorType;
-    }
-
-    public String getSensorNumber() {
+    public Integer getSensorNumber() {
         return sensorNumber;
-    }
-
-    public void setSensorNumber(String sensorNumber) {
-        this.sensorNumber = sensorNumber;
     }
 
     public String getBoardUuid() {

@@ -1,8 +1,12 @@
 package unipotsdam.myno;
 
+import com.datastax.oss.driver.api.core.cql.BoundStatement;
 import com.datastax.oss.driver.api.core.CqlSession;
+import com.datastax.oss.driver.api.core.cql.PreparedStatement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.sql.Date;
+import java.time.LocalDate;
 
 public class CassandraDao {
     private final CqlSession session;
@@ -12,22 +16,32 @@ public class CassandraDao {
         this.session = session;
     }
 
-    public void saveSensorData(String sensorType, String sensorNumber, String boardUuid, Long timestamp, double value) {
+    public void createTableIfNotExists(String tableName, String schema) {
+        String createTableQuery = String.format(schema, tableName);
+        session.execute(createTableQuery);
+    }
+
+    public void saveSensorData(String sensorType, int sensorNumber, String boardUuid, Long timestamp, double value) {
         try {
-            // if table doesn't exist, create it
-            String createTableQuery = String.format("CREATE TABLE IF NOT EXISTS sensor_%s (sensornumber text, board_uuid text, timestamp timestamp, sensorvalue double, PRIMARY KEY (sensornumber, timestamp));", sensorType);
-            session.execute(createTableQuery);
-    
-            // insert data
-            String insertDataQuery = String.format("INSERT INTO sensor_%s (sensornumber, board_uuid, timestamp, sensorvalue) VALUES (?, ?, ?, ?);", sensorType);
-            session.execute(insertDataQuery, sensorNumber, boardUuid, timestamp, value);
+            String insertDataQuery = String.format("INSERT INTO sensor_%s (sensor_number, board_uuid, timestamp, sensor_value) VALUES (?, ?, ?, ?);", sensorType);
+            PreparedStatement preparedStatement = session.prepare(insertDataQuery);
+
+            BoundStatement boundStatement = preparedStatement.bind(sensorNumber, boardUuid, new Date(timestamp), value);
+            session.execute(boundStatement);
         } catch (com.datastax.oss.driver.api.core.DriverException e) {
-            logger.debug(sensorNumber);
-            logger.debug(boardUuid);
-            logger.debug(Long.toString(timestamp));
-            logger.debug(Double.toString(value));
             logger.error("An error occurred while saving sensor data", e);
         }
     }
-    
+
+    public void saveSensorStatistics(String sensorType, int sensorNumber, LocalDate date, float minValue, float maxValue, float meanValue, float medianValue) {
+        try {
+            String insertDataQuery = "INSERT INTO sensor_statistics (sensor_type, sensor_number, date, min_value, max_value, mean_value, median_value) VALUES (?, ?, ?, ?, ?, ?, ?);";
+            PreparedStatement preparedStatement = session.prepare(insertDataQuery);
+
+            BoundStatement boundStatement = preparedStatement.bind(sensorType, sensorNumber, Date.valueOf(date), minValue, maxValue, meanValue, medianValue);
+            session.execute(boundStatement);
+        } catch (com.datastax.oss.driver.api.core.DriverException e) {
+            logger.error("An error occurred while saving sensor data", e);
+        }
+    }
 }
