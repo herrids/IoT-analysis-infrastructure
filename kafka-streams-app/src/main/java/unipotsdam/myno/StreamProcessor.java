@@ -7,12 +7,13 @@ import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.kstream.KStream;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
-
 
 public class StreamProcessor {
     private static final String KAFKA_BROKER = "kafka:9092";
@@ -21,6 +22,8 @@ public class StreamProcessor {
     private static final String KEYSPACE = "myno";
     private static final String CASSANDRA_USER = "cassandra";
     private static final String CASSANDRA_PASS = "cassandra";
+
+    private static final Logger logger = LoggerFactory.getLogger(CassandraDao.class);
 
     private static final Map<String, SensorDataStatistics> statisticsMap = new HashMap<>();
 
@@ -84,7 +87,7 @@ public class StreamProcessor {
                     (float) stats.getMedian()
                 );
             } catch (JsonProcessingException e) {
-                e.printStackTrace();
+                logger.error("An error occurred while processing stream", e);
             }
         });
 
