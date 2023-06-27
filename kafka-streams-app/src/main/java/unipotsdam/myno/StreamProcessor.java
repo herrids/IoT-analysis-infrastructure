@@ -52,6 +52,7 @@ public class StreamProcessor {
             ObjectMapper objectMapper = new ObjectMapper();
             SensorData sensorData;
             try {
+                logger.debug(value);
                 // Deserialize the JSON value into a SensorData object
                 sensorData = objectMapper.readValue(value, SensorData.class);
 
