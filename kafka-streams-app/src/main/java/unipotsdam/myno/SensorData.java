@@ -1,6 +1,6 @@
 package unipotsdam.myno;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class SensorData {
     private String sensorType;

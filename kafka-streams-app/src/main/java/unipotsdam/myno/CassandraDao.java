@@ -43,7 +43,7 @@ public class CassandraDao {
             BoundStatement boundStatement = preparedStatement.bind(sensorType, sensorNumber, date, minValue, maxValue, meanValue, medianValue);
             session.execute(boundStatement);
         } catch (com.datastax.oss.driver.api.core.DriverException e) {
-            logger.error("An error occurred while saving sensor data", e);
+            logger.error("An error occurred while saving sensor statistics", e);
         }
     }
 }
