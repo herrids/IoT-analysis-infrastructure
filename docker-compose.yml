@@ -2,6 +2,7 @@ version: '2.1'
 
 services:
   grafana:
+    container_name: grafana
     image: grafana/grafana:latest
     ports:
       - 3000:3000
@@ -12,6 +13,8 @@ services:
       - grafana-data:/var/lib/grafana
     depends_on:
       - cassandra
+    networks:
+      - app-tier
   zookeeper: 
     image: bitnami/zookeeper:latest
     hostname: zookeeper
