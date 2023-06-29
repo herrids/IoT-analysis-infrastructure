@@ -1,6 +1,6 @@
 package unipotsdam.myno;
 
-import java.util.Date;
+import java.time.Instant;
 
 public class SensorData {
     private String sensorType;
@@ -21,8 +21,8 @@ public class SensorData {
         return boardUuid;
     }
 
-    public Date getTimestamp() {
-        return new Date(timestamp);
+    public Instant getTimestamp() {
+        return Instant.ofEpochMilli(timestamp);
     }
 
     public double getValue() {
