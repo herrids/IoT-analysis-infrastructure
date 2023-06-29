@@ -9,7 +9,7 @@ services:
       GF_SECURITY_ADMIN_USER: admin
       GF_SECURITY_ADMIN_PASSWORD: admin
     volumes:
-      - grafana-volume:/var/lib/grafana
+      - grafana-data:/var/lib/grafana
     depends_on:
       - cassandra
   zookeeper: 
@@ -76,6 +76,7 @@ services:
 
 volumes:
   cassandra_data:
+  grafana-data:
     driver: local
 
 networks:
