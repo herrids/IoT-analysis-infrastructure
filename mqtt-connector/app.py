@@ -18,6 +18,9 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     # Split the topic into its individual parts
     parts = msg.topic.split("/")
+
+    if parts[0] is "state":
+        print(msg.topic, str(msg.payload))
     # Check if the topic is related to a sensor
     if parts[0] in ("sensor", "actuator") and not parts[3].startswith("SIMULATOR") :
         # Extract the sensor type and number, and board UUID from the topic
@@ -37,8 +40,6 @@ def on_message(client, userdata, msg):
             "timestamp": timestamp,
             "value": str(msg.payload)[2:-1]
         }
-
-        print(now_utc, data)
         
         # Publish the MQTT message to the Kafka topic
         kafka_producer.send("sensor-data-topic", value=data)
