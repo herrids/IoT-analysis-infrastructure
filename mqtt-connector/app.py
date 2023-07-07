@@ -22,7 +22,7 @@ def on_message(client, userdata, msg):
     if parts[0] == "state":
         print(msg.topic, str(msg.payload))
     # Check if the topic is related to a sensor
-    if parts[0] in ("sensor", "actuator") and not parts[3].startswith("SIMULATOR") :
+    if parts[0] in ("sensor", "actuator"): # and not parts[3].startswith("SIMULATOR") :
         # Extract the sensor type and number, and board UUID from the topic
         sensor_type, sensor_number = parts[2].split("_")
         board_uuid = parts[3]
