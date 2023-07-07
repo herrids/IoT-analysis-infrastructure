@@ -8,6 +8,16 @@ public class SensorDataStatistics {
     public SensorDataStatistics() {
     }
 
+    // Getter for "values"
+    public List<Double> getValues() {
+        return this.values;
+    }
+
+    // Setter for "values"
+    public void setValues(List<Double> values) {
+        this.values = values;
+    }
+
     // Update statistics with new data
     public SensorDataStatistics updateWith(SensorData data) {
         values.add(data.getValue());
@@ -52,4 +62,3 @@ public class SensorDataStatistics {
         }
     }
 }
-
