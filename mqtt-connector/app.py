@@ -19,7 +19,7 @@ def on_message(client, userdata, msg):
     # Split the topic into its individual parts
     parts = msg.topic.split("/")
 
-    if parts[0] is "state":
+    if parts[0] == "state":
         print(msg.topic, str(msg.payload))
     # Check if the topic is related to a sensor
     if parts[0] in ("sensor", "actuator") and not parts[3].startswith("SIMULATOR") :
