@@ -36,7 +36,8 @@ public class StreamProcessor {
         props.put(StreamsConfig.APPLICATION_ID_CONFIG, "my-stream-processing-application");
         props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, KAFKA_BROKER);
         props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
-        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
+        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, new SensorDataSerde().getClass());
+
 
         // Connect to Cassandra database
         CassandraConnector connector = new CassandraConnector();
