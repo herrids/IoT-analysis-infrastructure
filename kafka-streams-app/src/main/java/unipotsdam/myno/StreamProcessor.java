@@ -77,7 +77,7 @@ public class StreamProcessor {
                 .aggregate(
                     SensorDataStatistics::new, // Initializer
                     (key, value, aggregate) -> aggregate.updateWith(value), // Aggregator
-                    Materialized.with(Serdes.String(), Serdes.serdeFrom(SensorDataStatistics.class))
+                    Materialized.with(Serdes.String(), new JsonPOJOSerde<SensorDataStatistics>())
                 )
                 .toStream()
                 .foreach((key, value) -> {
