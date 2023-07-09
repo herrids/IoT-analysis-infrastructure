@@ -106,11 +106,14 @@ public class StreamProcessor {
          // Create a key for each record based on sensorType and sensorNumber
         KStream<String, SensorData> sensorDataStreamWithKey = sensorDataStream.selectKey((k, v) -> v.getSensorType() + "_" + v.getSensorNumber() + "_" + v.getBoardUuid() + "_" + LocalDate.now());
         
-        /* sensorDataStreamWithKey.groupByKey()
+        sensorDataStreamWithKey.groupByKey()
                 .windowedBy(TimeWindows.of(Duration.ofDays(1)).grace(Duration.ofHours(1)))
                 .aggregate(
                     SensorDataStatistics::new, // Initializer
-                    (key, value, aggregate) -> aggregate.updateWith(value), // Aggregator
+                    (key, value, aggregate) -> {
+                        aggregate.updateWith(value); 
+                        return aggregate;
+                    }, 
                     Materialized.with(Serdes.String(), new JsonPOJOSerde<>(SensorDataStatistics.class))
                 )
                 .toStream()
@@ -134,7 +137,7 @@ public class StreamProcessor {
                         (float) value.getMean(),
                         (float) value.getMedian()
                     );
-                }); */
+                });
         
         // Create a Kafka Streams object and start the processing
         KafkaStreams streams = new KafkaStreams(builder.build(), props);
