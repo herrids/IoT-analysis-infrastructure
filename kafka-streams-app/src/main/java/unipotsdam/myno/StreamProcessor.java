@@ -48,7 +48,7 @@ public class StreamProcessor {
         CassandraConnector connector = new CassandraConnector();
         connector.connect(CASSANDRA_DB, KEYSPACE, CASSANDRA_USER, CASSANDRA_PASS);
         CassandraDao dao = new CassandraDao(connector.getSession());
-        dao.createTableIfNotExists("sensor_statistics", "CREATE TABLE IF NOT EXISTS %s (sensor_type text, sensor_number int, date date, min_value float, max_value float, mean_value float, median_value float, PRIMARY KEY ((sensor_type, sensor_number), date));");
+        dao.createTableIfNotExists("sensor_statistics", "CREATE TABLE IF NOT EXISTS %s (sensor_type text, sensor_number int, board_uuid text, date date, min_value float, max_value float, mean_value float, median_value float, PRIMARY KEY ((sensor_type, sensor_number, board_uuid), date));");
 
         // Create a Kafka Streams builder
         StreamsBuilder builder = new StreamsBuilder();
@@ -81,9 +81,6 @@ public class StreamProcessor {
                 // Store the updated statistics object in the map
                 statisticsMap.put(statsKey, stats);
 
-                // Create a table for sensor statistics if it doesn't exist
-                dao.createTableIfNotExists("sensor_statistics", "CREATE TABLE IF NOT EXISTS %s (sensor_type text, sensor_number int, board_uuid text, date date, min_value float, max_value float, mean_value float, median_value float, PRIMARY KEY ((sensor_type, sensor_number), date));");
-
                 // Save the sensor statistics to Cassandra
                 dao.saveSensorStatistics(
                     sensorData.getSensorType(),
@@ -103,7 +100,7 @@ public class StreamProcessor {
             }
         });
 
-        dao.createTableIfNotExists("sensor_statistics_real", "CREATE TABLE IF NOT EXISTS %s (sensor_type text, sensor_number int, board_uuid text, date date, min_value float, max_value float, mean_value float, median_value float, PRIMARY KEY ((sensor_type, sensor_number), date));");
+        dao.createTableIfNotExists("sensor_statistics_real", "CREATE TABLE IF NOT EXISTS %s (sensor_type text, sensor_number int, board_uuid text, date date, min_value float, max_value float, mean_value float, median_value float, PRIMARY KEY ((sensor_type, sensor_number, board_uuid), date));");
 
          // Create a key for each record based on sensorType and sensorNumber
         KStream<String, SensorData> sensorDataStreamWithKey = sensorDataStream.selectKey((k, v) -> v.getSensorType() + "_" + v.getSensorNumber() + "_" + v.getBoardUuid() + "_" + LocalDate.now());
