@@ -7,6 +7,7 @@ import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.Materialized;
 import org.apache.kafka.streams.kstream.TimeWindows;
+import org.apache.kafka.streams.kstream.Grouped;
 import org.apache.kafka.streams.state.WindowStore;
 import org.apache.kafka.common.utils.Bytes;
 
@@ -104,45 +105,46 @@ public class StreamProcessor {
 
         dao.createTableIfNotExists("sensor_statistics_real", "CREATE TABLE IF NOT EXISTS %s (sensor_type text, sensor_number int, board_uuid text, date date, min_value float, max_value float, mean_value float, median_value float, PRIMARY KEY ((sensor_type, sensor_number), date));");
 
-
          // Create a key for each record based on sensorType and sensorNumber
         KStream<String, SensorData> sensorDataStreamWithKey = sensorDataStream.selectKey((k, v) -> v.getSensorType() + "_" + v.getSensorNumber() + "_" + v.getBoardUuid() + "_" + LocalDate.now());
         
-        sensorDataStreamWithKey.groupByKey()
-                .windowedBy(TimeWindows.of(Duration.ofDays(1)).grace(Duration.ofHours(1)))
-                .aggregate(
-                    SensorDataStatistics::new, // Initializer
-                    (key, value, aggregate) -> {
-                        aggregate.updateWith(value);
-                        logger.debug("Wallah" + aggregate);
-                        return aggregate;
-                    },
-                    Materialized.<String, SensorDataStatistics, WindowStore<Bytes, byte[]>>as("aggregate-store")
-                        .withKeySerde(Serdes.String())
-                        .withValueSerde(new JsonPOJOSerde<>(SensorDataStatistics.class))
+        JsonPOJOSerde<SensorData> sensorDataSerde = new JsonPOJOSerde<>(SensorData.class);
+
+        sensorDataStreamWithKey.groupByKey(Grouped.with(Serdes.String(), sensorDataSerde))
+            .windowedBy(TimeWindows.of(Duration.ofDays(1)).grace(Duration.ofHours(1)))
+            .aggregate(
+                SensorDataStatistics::new, // Initializer
+                (key, value, aggregate) -> {
+                    aggregate.updateWith(value);
+                    logger.debug("Wallah" + aggregate);
+                    return aggregate;
+                },
+                Materialized.<String, SensorDataStatistics, WindowStore<Bytes, byte[]>>as("aggregate-store")
+                    .withKeySerde(Serdes.String())
+                    .withValueSerde(new JsonPOJOSerde<>(SensorDataStatistics.class))
+            )
+            .toStream()
+            .foreach((key, value) -> {
+                String[] parts = key.key().split("_");
+                String sensorType = parts[0];
+                int sensorNumber = Integer.parseInt(parts[1]);
+                String boardUuid = parts[2];
+
+                // Extract date from window start
+                LocalDate date = Instant.ofEpochMilli(key.window().start()).atZone(ZoneId.systemDefault()).toLocalDate();
+
+                // Save statistics to the database
+                dao.saveSensorStatisticsReal(
+                    sensorType,
+                    sensorNumber,
+                    boardUuid,
+                    date,
+                    (float) value.getMin(),
+                    (float) value.getMax(),
+                    (float) value.getMean(),
+                    (float) value.getMedian()
                 );
-                /* .toStream()
-                .foreach((key, value) -> {
-                    String[] parts = key.key().split("_");
-                    String sensorType = parts[0];
-                    int sensorNumber = Integer.parseInt(parts[1]);
-                    String boardUuid = parts[2];
-
-                    // Extract date from window start
-                    LocalDate date = Instant.ofEpochMilli(key.window().start()).atZone(ZoneId.systemDefault()).toLocalDate();
-
-                    // Save statistics to the database
-                    dao.saveSensorStatisticsReal(
-                        sensorType,
-                        sensorNumber,
-                        boardUuid,
-                        date,
-                        (float) value.getMin(),
-                        (float) value.getMax(),
-                        (float) value.getMean(),
-                        (float) value.getMedian()
-                    );
-                }); */
+            });
         
         // Create a Kafka Streams object and start the processing
         KafkaStreams streams = new KafkaStreams(builder.build(), props);
