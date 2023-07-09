@@ -1,45 +1,65 @@
 package unipotsdam.myno;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serde;
-import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.serialization.Serializer;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Map;
 
 public class JsonPOJOSerde<T> implements Serializer<T>, Deserializer<T>, Serde<T> {
+
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    // Serializer
+    private final Class<T> tClass;
+
+    public JsonPOJOSerde(Class<T> tClass) {
+        this.tClass = tClass;
+    }
+
     @Override
     public void configure(Map<String, ?> configs, boolean isKey) {
+        // Nothing to configure
+    }
+
+    @Override
+    public T deserialize(String topic, byte[] data) {
+        if (data == null) {
+            return null;
+        }
+
+        T obj;
+        try {
+            obj = objectMapper.readValue(data, tClass);
+        } catch (Exception e) {
+            throw new SerializationException(e);
+        }
+
+        return obj;
     }
 
     @Override
     public byte[] serialize(String topic, T data) {
-        try {
-            return objectMapper.writeValueAsBytes(data);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        if (data == null) {
+            return null;
         }
+
+        byte[] retVal;
+        try {
+            retVal = objectMapper.writeValueAsBytes(data);
+        } catch (Exception e) {
+            throw new SerializationException(e);
+        }
+
+        return retVal;
     }
 
     @Override
     public void close() {
+        // Nothing to close
     }
 
-    // Deserializer
-    @Override
-    public T deserialize(String topic, byte[] bytes) {
-        try {
-            return objectMapper.readValue(bytes, new com.fasterxml.jackson.core.type.TypeReference<T>(){});
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    // Serde
     @Override
     public Serializer<T> serializer() {
         return this;
