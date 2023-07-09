@@ -7,6 +7,8 @@ import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.Materialized;
 import org.apache.kafka.streams.kstream.TimeWindows;
+import org.apache.kafka.streams.state.WindowStore;
+import org.apache.kafka.common.utils.Bytes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -39,7 +41,7 @@ public class StreamProcessor {
         props.put(StreamsConfig.APPLICATION_ID_CONFIG, "my-stream-processing-application");
         props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, KAFKA_BROKER);
         props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
-        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, SensorDataSerde.class);
+        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
 
         // Connect to Cassandra database
         CassandraConnector connector = new CassandraConnector();
@@ -114,7 +116,7 @@ public class StreamProcessor {
                         aggregate.updateWith(value); 
                         return aggregate;
                     }, 
-                    Materialized.with(Serdes.String(), new JsonPOJOSerde<>(SensorDataStatistics.class))
+                    Materialized.<String, SensorDataStatistics, WindowStore<Bytes, byte[]>>as("aggregate-store").withValueSerde(new JsonPOJOSerde<>(SensorDataStatistics.class))
                 )
                 .toStream()
                 .foreach((key, value) -> {
