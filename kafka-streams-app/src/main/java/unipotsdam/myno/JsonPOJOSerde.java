@@ -1,6 +1,7 @@
 package unipotsdam.myno;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serde;
@@ -10,7 +11,7 @@ import java.util.Map;
 
 public class JsonPOJOSerde<T> implements Serializer<T>, Deserializer<T>, Serde<T> {
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
     private final Class<T> tClass;
 
