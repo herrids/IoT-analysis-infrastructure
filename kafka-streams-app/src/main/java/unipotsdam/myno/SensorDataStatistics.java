@@ -4,6 +4,10 @@ import java.util.*;
 
 public class SensorDataStatistics {
     private List<Double> values = new ArrayList<>();
+    private double min;
+    private double max;
+    private double mean;
+    private double median;
 
     public SensorDataStatistics() {
     }
@@ -18,28 +22,65 @@ public class SensorDataStatistics {
         this.values = values;
     }
 
+    // Getters and setters for min, max, mean, median
+    public double getMin() {
+        return min;
+    }
+
+    public void setMin(double min) {
+        this.min = min;
+    }
+
+    public double getMax() {
+        return max;
+    }
+
+    public void setMax(double max) {
+        this.max = max;
+    }
+
+    public double getMean() {
+        return mean;
+    }
+
+    public void setMean(double mean) {
+        this.mean = mean;
+    }
+
+    public double getMedian() {
+        return median;
+    }
+
+    public void setMedian(double median) {
+        this.median = median;
+    }
+
     // Update statistics with new data
     public SensorDataStatistics updateWith(SensorData data) {
         values.add(data.getValue());
         Collections.sort(values);
+        min = getMinValue();
+        max = getMaxValue();
+        mean = getMeanValue();
+        median = getMedianValue();
         return this;
     }
 
-    public double getMin() {
+    private double getMinValue() {
         if (values.isEmpty()) {
             return Double.NaN;
         }
         return values.get(0);
     }
 
-    public double getMax() {
+    private double getMaxValue() {
         if (values.isEmpty()) {
             return Double.NaN;
         }
         return values.get(values.size() - 1);
     }
 
-    public double getMean() {
+    private double getMeanValue() {
         if (values.isEmpty()) {
             return Double.NaN;
         }
@@ -50,7 +91,7 @@ public class SensorDataStatistics {
         return sum / values.size();
     }
 
-    public double getMedian() {
+    private double getMedianValue() {
         if (values.isEmpty()) {
             return Double.NaN;
         }

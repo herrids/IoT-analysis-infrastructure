@@ -116,7 +116,6 @@ public class StreamProcessor {
                 SensorDataStatistics::new, // Initializer
                 (key, value, aggregate) -> {
                     aggregate.updateWith(value);
-                    logger.debug("Wallah" + aggregate);
                     return aggregate;
                 },
                 Materialized.<String, SensorDataStatistics, WindowStore<Bytes, byte[]>>as("aggregate-store")
