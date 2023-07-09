@@ -75,7 +75,7 @@ public class StreamProcessor {
                 statisticsMap.put(statsKey, stats);
 
                 // Create a table for sensor statistics if it doesn't exist
-                dao.createTableIfNotExists("sensor_statistics", "CREATE TABLE IF NOT EXISTS %s (sensor_type text, sensor_number int, date date, min_value float, max_value float, mean_value float, median_value float, PRIMARY KEY ((sensor_type, sensor_number), date));");
+                dao.createTableIfNotExists("sensor_statistics", "CREATE TABLE IF NOT EXISTS %s (sensor_type text, sensor_number int, board_uuid text, date date, min_value float, max_value float, mean_value float, median_value float, PRIMARY KEY ((sensor_type, sensor_number), date));");
 
                 // Save the sensor statistics to Cassandra
                 dao.saveSensorStatistics(
