@@ -116,7 +116,9 @@ public class StreamProcessor {
                         aggregate.updateWith(value); 
                         return aggregate;
                     }, 
-                    Materialized.<String, SensorDataStatistics, WindowStore<Bytes, byte[]>>as("aggregate-store").withValueSerde(new JsonPOJOSerde<>(SensorDataStatistics.class))
+                    Materialized.<String, SensorDataStatistics, WindowStore<Bytes, byte[]>>as("aggregate-store")
+                        .withKeySerde(Serdes.String())
+                        .withValueSerde(new JsonPOJOSerde<>(SensorDataStatistics.class))
                 )
                 .toStream()
                 .foreach((key, value) -> {
