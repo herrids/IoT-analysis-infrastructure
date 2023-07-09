@@ -100,11 +100,12 @@ public class StreamProcessor {
             }
         });
 
+        dao.createTableIfNotExists("sensor_statistics_real", "CREATE TABLE IF NOT EXISTS %s (sensor_type text, sensor_number int, board_uuid text, date date, min_value float, max_value float, mean_value float, median_value float, PRIMARY KEY ((sensor_type, sensor_number), date));");
 
 
          // Create a key for each record based on sensorType and sensorNumber
         KStream<String, SensorData> sensorDataStreamWithKey = sensorDataStream.selectKey((k, v) -> v.getSensorType() + "_" + v.getSensorNumber() + "_" + v.getBoardUuid() + "_" + LocalDate.now());
-        /*
+        
         sensorDataStreamWithKey.groupByKey()
                 .windowedBy(TimeWindows.of(Duration.ofDays(1)).grace(Duration.ofHours(1)))
                 .aggregate(
@@ -123,7 +124,7 @@ public class StreamProcessor {
                     LocalDate date = Instant.ofEpochMilli(key.window().start()).atZone(ZoneId.systemDefault()).toLocalDate();
 
                     // Save statistics to the database
-                    dao.saveSensorStatistics(
+                    dao.saveSensorStatisticsReal(
                         sensorType,
                         sensorNumber,
                         boardUuid,
@@ -134,7 +135,7 @@ public class StreamProcessor {
                         (float) value.getMedian()
                     );
                 });
-         */
+        
         // Create a Kafka Streams object and start the processing
         KafkaStreams streams = new KafkaStreams(builder.build(), props);
         streams.start();
