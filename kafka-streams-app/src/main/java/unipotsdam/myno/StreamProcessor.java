@@ -113,14 +113,15 @@ public class StreamProcessor {
                 .aggregate(
                     SensorDataStatistics::new, // Initializer
                     (key, value, aggregate) -> {
-                        aggregate.updateWith(value); 
+                        aggregate.updateWith(value);
+                        logger.debug("Wallah" + aggregate);
                         return aggregate;
-                    }, 
+                    },
                     Materialized.<String, SensorDataStatistics, WindowStore<Bytes, byte[]>>as("aggregate-store")
                         .withKeySerde(Serdes.String())
                         .withValueSerde(new JsonPOJOSerde<>(SensorDataStatistics.class))
-                )
-                .toStream()
+                );
+                /* .toStream()
                 .foreach((key, value) -> {
                     String[] parts = key.key().split("_");
                     String sensorType = parts[0];
@@ -141,7 +142,7 @@ public class StreamProcessor {
                         (float) value.getMean(),
                         (float) value.getMedian()
                     );
-                });
+                }); */
         
         // Create a Kafka Streams object and start the processing
         KafkaStreams streams = new KafkaStreams(builder.build(), props);
