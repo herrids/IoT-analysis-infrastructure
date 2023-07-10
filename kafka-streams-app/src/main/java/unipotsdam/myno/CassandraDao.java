@@ -46,17 +46,4 @@ public class CassandraDao {
             logger.error("An error occurred while saving sensor statistics", e);
         }
     }
-
-    public void saveSensorStatisticsReal(String sensorType, int sensorNumber, String board_uuid, LocalDate date, float minValue, float maxValue, float meanValue, float medianValue) {
-        logger.debug(sensorType + ", " + sensorNumber + ", " + date);
-        try {
-            String insertDataQuery = "INSERT INTO sensor_statistics_real (sensor_type, sensor_number, board_uuid, date, min_value, max_value, mean_value, median_value) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
-            PreparedStatement preparedStatement = session.prepare(insertDataQuery);
-
-            BoundStatement boundStatement = preparedStatement.bind(sensorType, sensorNumber, board_uuid, date, minValue, maxValue, meanValue, medianValue);
-            session.execute(boundStatement);
-        } catch (com.datastax.oss.driver.api.core.DriverException e) {
-            logger.error("An error occurred while saving sensor statistics", e);
-        }
-    }
 }

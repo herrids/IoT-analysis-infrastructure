@@ -69,38 +69,15 @@ public class StreamProcessor {
                 // Save the sensor data to Cassandra
                 dao.saveSensorData(sensorData.getSensorType(), sensorData.getSensorNumber(), sensorData.getBoardUuid(), sensorData.getTimestamp(), sensorData.getValue());
 
-                // Create a key for today's date
-                String statsKey = sensorData.getSensorType() + "_" + sensorData.getSensorNumber() + "_" + LocalDate.now();
-
-                // Get the statistics object for the key, or create a new one if it doesn't exist
-                SensorDataStatistics stats = statisticsMap.getOrDefault(statsKey, new SensorDataStatistics());
-
-                // Update the statistics with the current sensor data
-                stats.updateWith(sensorData);
-
-                // Store the updated statistics object in the map
-                statisticsMap.put(statsKey, stats);
-
-                // Save the sensor statistics to Cassandra
-                dao.saveSensorStatistics(
-                    sensorData.getSensorType(),
-                    sensorData.getSensorNumber(),
-                    sensorData.getBoardUuid(),
-                    LocalDate.now(),
-                    (float) stats.getMin(),
-                    (float) stats.getMax(),
-                    (float) stats.getMean(),
-                    (float) stats.getMedian()
-                );
-
                 return sensorData;
+
             } catch (JsonProcessingException e) {
                 logger.error("An error occurred while processing stream", e);
                 return null;
             }
         });
 
-        dao.createTableIfNotExists("sensor_statistics_real", "CREATE TABLE IF NOT EXISTS %s (sensor_type text, sensor_number int, board_uuid text, date date, min_value float, max_value float, mean_value float, median_value float, PRIMARY KEY ((sensor_type, sensor_number, board_uuid), date));");
+        dao.createTableIfNotExists("sensor_statistics", "CREATE TABLE IF NOT EXISTS %s (sensor_type text, sensor_number int, board_uuid text, date date, min_value float, max_value float, mean_value float, median_value float, PRIMARY KEY ((sensor_type, sensor_number, board_uuid), date));");
 
          // Create a key for each record based on sensorType and sensorNumber
         KStream<String, SensorData> sensorDataStreamWithKey = sensorDataStream.selectKey((k, v) -> v.getSensorType() + "_" + v.getSensorNumber() + "_" + v.getBoardUuid() + "_" + LocalDate.now());
@@ -130,7 +107,7 @@ public class StreamProcessor {
                 LocalDate date = Instant.ofEpochMilli(key.window().start()).atZone(ZoneId.systemDefault()).toLocalDate();
 
                 // Save statistics to the database
-                dao.saveSensorStatisticsReal(
+                dao.saveSensorStatistics(
                     sensorType,
                     sensorNumber,
                     boardUuid,
