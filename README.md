@@ -3,9 +3,7 @@ This project is a Docker Compose setup that creates a real-time data streaming p
 
 ## System Architecture
 
-         --------------      -----------------     ---------     --------
 MQTT --> MQTT-Connector  --> Kafka-Streams-App --> Cassandra --> Grafana 
-         --------------      -----------------     ---------     --------
                           ^           ^
                           |           |
                      Zookeeper    Kafka (broker)
