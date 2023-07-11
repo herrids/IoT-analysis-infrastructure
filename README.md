@@ -4,9 +4,7 @@ This project is a Docker Compose setup that creates a real-time data streaming p
 ## System Architecture
 
 MQTT --> MQTT-Connector  --> Kafka-Streams-App --> Cassandra --> Grafana 
-                          ^           ^
-                          |           |
-                     Zookeeper    Kafka (broker)
+
 ## Services
 Grafana: A platform for monitoring and observability. It makes it easy to visualize and alert on the metrics from your infrastructure and applications.
 Zookeeper: A centralized service for maintaining configuration information, naming, providing distributed synchronization, and group services. Kafka uses Zookeeper.
