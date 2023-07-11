@@ -8,14 +8,19 @@ MQTT --> MQTT-Connector  --> Kafka-Streams-App --> Cassandra --> Grafana
 ## Services
 Grafana: A platform for monitoring and observability. It makes it easy to visualize and alert on the metrics from your infrastructure and applications.
 Zookeeper: A centralized service for maintaining configuration information, naming, providing distributed synchronization, and group services. Kafka uses Zookeeper.
+
 Kafka: A distributed streaming platform that allows applications to publish and subscribe to streams of records in a fault-tolerant way.
 Cassandra: A distributed NoSQL database that provides high availability and scalability.
+
 MQTT-Connector: A custom service that receives messages from an MQTT broker and publishes them to a Kafka topic.
+
 Kafka-Streams-App: A custom service that consumes the Kafka topic, processes the messages with Kafka Streams, and stores the results in Cassandra.
-Prerequisites
+
+## Prerequisites
 Docker and Docker-Compose should be installed on your machine.
 You should have basic knowledge of Docker, Docker-Compose, and Kafka.
-How to run the project
+
+## How to run the project
 Clone this repository and navigate to the directory containing the docker-compose.yml file.
 Build the MQTT-Connector and Kafka-Streams-App services by running the following command:
 
