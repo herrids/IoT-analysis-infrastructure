@@ -70,7 +70,7 @@ public class StreamProcessor {
             }
         });
 
-         // Create a key for each record based on sensorType and sensor number and Board UUID
+        // Create a key for each record based on sensorType and sensor number and Board UUID
         KStream<String, SensorData> sensorDataStreamWithKey = sensorDataStream.selectKey((k, v) -> v.getSensorType() + "_" + v.getSensorNumber() + "_" + v.getBoardUuid() + "_" + LocalDate.now());
         
         JsonPOJOSerde<SensorData> sensorDataSerde = new JsonPOJOSerde<>(SensorData.class);

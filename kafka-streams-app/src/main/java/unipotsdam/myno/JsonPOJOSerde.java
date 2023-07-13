@@ -55,9 +55,7 @@ public class JsonPOJOSerde<T> implements Serializer<T>, Deserializer<T>, Serde<T
     }
 
     @Override
-    public void close() {
-        // Nothing to close
-    }
+    public void close() {}
 
     @Override
     public Serializer<T> serializer() {
