@@ -15,6 +15,7 @@ services:
       - cassandra
     networks:
       - app-tier
+      
   zookeeper: 
     image: bitnami/zookeeper:latest
     hostname: zookeeper

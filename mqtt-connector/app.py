@@ -1,7 +1,6 @@
-# Import required libraries
 import json
-import paho.mqtt.client as mqtt # MQTT client library
-from datetime import datetime # Datetime library to handle timestamp
+import paho.mqtt.client as mqtt
+from datetime import datetime
 import time
 from kafka import KafkaProducer
 
@@ -19,15 +18,11 @@ def on_message(client, userdata, msg):
     # Split the topic into its individual parts
     parts = msg.topic.split("/")
 
-    if parts[0] == "state":
-        print(msg.topic, str(msg.payload))
-    # Check if the topic is related to a sensor
-    if parts[0] in ("sensor", "actuator"): # and not parts[3].startswith("SIMULATOR") :
-        # Extract the sensor type and number, and board UUID from the topic
+    if parts[0] in ("sensor", "actuator", "state"):
+
         sensor_type, sensor_number = parts[2].split("_")
         board_uuid = parts[3]
 
-        # format the datetime object as a string and remove trailing zeros
         now_utc = datetime.utcnow()
         timestamp = int(time.mktime(now_utc.timetuple())) * 1000
 
@@ -41,25 +36,20 @@ def on_message(client, userdata, msg):
             "value": str(msg.payload)[2:-1]
         }
         
-        # Publish the MQTT message to the Kafka topic
+        # Publish the MQTT message to the Kafka topic and ensure the message is sent immediately
         kafka_producer.send("sensor-data-topic", value=data)
-        kafka_producer.flush()  # Ensure the message is sent immediately
+        kafka_producer.flush()
 
 # This function is responsible for receiving MQTT messages
 def receive():
-    # Create a new MQTT client
     client = mqtt.Client()
 
-    # Set the on_connect and on_message callbacks
     client.on_connect = on_connect
     client.on_message = on_message
 
-    # Connect to the MQTT broker
     client.connect("10.3.24.115", 1883, 60)
     
-    # Start the MQTT client loop
     client.loop_forever()
 
 if __name__ == "__main__":
-    # Start receiving MQTT messages
     receive()

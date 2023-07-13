@@ -20,9 +20,7 @@ public class JsonPOJOSerde<T> implements Serializer<T>, Deserializer<T>, Serde<T
     }
 
     @Override
-    public void configure(Map<String, ?> configs, boolean isKey) {
-        // Nothing to configure
-    }
+    public void configure(Map<String, ?> configs, boolean isKey) {}
 
     @Override
     public T deserialize(String topic, byte[] data) {

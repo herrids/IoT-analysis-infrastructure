@@ -12,17 +12,14 @@ public class SensorDataStatistics {
     public SensorDataStatistics() {
     }
 
-    // Getter for "values"
     public List<Double> getValues() {
         return this.values;
     }
 
-    // Setter for "values"
     public void setValues(List<Double> values) {
         this.values = values;
     }
 
-    // Getters and setters for min, max, mean, median
     public double getMin() {
         return min;
     }
@@ -55,7 +52,6 @@ public class SensorDataStatistics {
         this.median = median;
     }
 
-    // Update statistics with new data
     public SensorDataStatistics updateWith(SensorData data) {
         values.add(data.getValue());
         Collections.sort(values);
