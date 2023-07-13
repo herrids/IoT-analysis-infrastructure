@@ -17,7 +17,7 @@ def on_message(client, userdata, msg):
     # Split the topic into its individual parts
     parts = msg.topic.split("/")
     # Check if the topic is related to a sensor
-    if parts[0] in ("sensor", "actuator"):
+    if parts[0] in ("sensor", "state"): # no actuator because its the manual pump
         # Extract the sensor type and number, and board UUID from the topic
         sensor_type, sensor_number = parts[2].split("_")
         board_uuid = parts[3]
