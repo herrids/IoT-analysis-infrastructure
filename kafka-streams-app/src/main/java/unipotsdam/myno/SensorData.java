@@ -7,7 +7,7 @@ public class SensorData {
     private Integer sensorNumber;
     private String boardUuid;
     private Long timestamp;
-    private double value;
+    private String value;
 
     public String getSensorType() {
         return sensorType;
@@ -26,7 +26,13 @@ public class SensorData {
     }
 
     public double getValue() {
-        return value;
+        if (value.toLowerCase().contains("on")) {
+            return 1.0;
+        } else if (value.toLowerCase().contains("off")) {
+            return 0.0;
+        } else {
+            return Double.parseDouble(value);
+        }
     }
 
 }
