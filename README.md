@@ -3,11 +3,14 @@ This project is a Docker Compose setup that creates a real-time data streaming p
 
 ## System Architecture
 
-MQTT --> MQTT-Connector  --> Kafka-Streams-App --> Cassandra --> Grafana 
+MQTT --> MQTT-Connector --> Kafka-Streams-App --> Cassandra --> Grafana 
 
 ## Services
 Grafana: A platform for monitoring and observability. It makes it easy to visualize and alert on the metrics from your infrastructure and applications.
+
 Zookeeper: A centralized service for maintaining configuration information, naming, providing distributed synchronization, and group services. Kafka uses Zookeeper.
+
+Cassandra: A highly scalable and distributed NoSQL database system designed to handle large volumes of data across many commodity servers, without any single point of failure. It offers robust support for clusters spanning multiple datacenters, with asynchronous masterless replication allowing low latency operations for all clients.
 
 Kafka: A distributed streaming platform that allows applications to publish and subscribe to streams of records in a fault-tolerant way.
 Cassandra: A distributed NoSQL database that provides high availability and scalability.
