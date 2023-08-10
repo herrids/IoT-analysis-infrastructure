@@ -1,0 +1,1888 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 2,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                },
+                {
+                  "color": "green",
+                  "value": 50
+                },
+                {
+                  "color": "red",
+                  "value": 90
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 4,
+          "x": 0,
+          "y": 0
+        },
+        "id": 4,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "10.0.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "SELECT sensor_number, sensor_value, timestamp\nFROM sensor_moisture\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid'\nORDER BY timestamp DESC \nALLOW FILTERING;"
+          }
+        ],
+        "title": "Moisture 1 in Percent",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                },
+                {
+                  "color": "green",
+                  "value": 50
+                },
+                {
+                  "color": "red",
+                  "value": 90
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 4,
+          "x": 4,
+          "y": 0
+        },
+        "id": 3,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "10.0.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "SELECT sensor_number, sensor_value, timestamp\nFROM sensor_moisture\nWHERE sensor_number = 2 AND board_uuid = '$board_uuid'\nORDER BY timestamp DESC \nALLOW FILTERING;"
+          }
+        ],
+        "title": "Moisture 2 in Percent",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                },
+                {
+                  "color": "green",
+                  "value": 50
+                },
+                {
+                  "color": "red",
+                  "value": 90
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 4,
+          "x": 8,
+          "y": 0
+        },
+        "id": 8,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "10.0.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "SELECT sensor_number, sensor_value, timestamp\nFROM sensor_moisture\nWHERE sensor_number = 3 AND board_uuid = '$board_uuid'\nORDER BY timestamp DESC \nALLOW FILTERING;"
+          }
+        ],
+        "title": "Moisture 3 in Percent",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                },
+                {
+                  "color": "green",
+                  "value": 40
+                },
+                {
+                  "color": "red",
+                  "value": 90
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 4,
+          "x": 12,
+          "y": 0
+        },
+        "id": 1,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "10.0.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "SELECT sensor_number, sensor_value, timestamp\nFROM sensor_humidity\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid'\nORDER BY timestamp DESC \nALLOW FILTERING;"
+          }
+        ],
+        "title": "Humidity 1 in Percent",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                },
+                {
+                  "color": "green",
+                  "value": 18
+                },
+                {
+                  "color": "red",
+                  "value": 26
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 4,
+          "x": 16,
+          "y": 0
+        },
+        "id": 6,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "10.0.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "SELECT sensor_number, sensor_value, timestamp\nFROM sensor_temperature\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid'\nORDER BY timestamp DESC \nALLOW FILTERING;"
+          }
+        ],
+        "title": "Temperature 1 in Degree Celsius",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                },
+                {
+                  "color": "green",
+                  "value": 1000
+                },
+                {
+                  "color": "red",
+                  "value": 1013
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 4,
+          "x": 20,
+          "y": 0
+        },
+        "id": 7,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "10.0.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "SELECT sensor_number, sensor_value, timestamp\nFROM sensor_pressure\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid'\nORDER BY timestamp DESC \nALLOW FILTERING;"
+          }
+        ],
+        "title": "Pressure 1 in hPa",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 4,
+          "x": 0,
+          "y": 6
+        },
+        "id": 10,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "SELECT blobAsText(textAsBlob('Mean')), CAST(mean_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'moisture'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "B",
+            "target": "SELECT blobAsText(textAsBlob('Median')), CAST(median_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'moisture'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "C",
+            "target": "SELECT blobAsText(textAsBlob('Min')), CAST(min_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'moisture'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "D",
+            "target": "SELECT blobAsText(textAsBlob('Max')), CAST(max_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'moisture'\nALLOW FILTERING;\n"
+          }
+        ],
+        "title": "Statistics Moisture 1 in Percent",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 4,
+          "x": 4,
+          "y": 6
+        },
+        "id": 16,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "SELECT blobAsText(textAsBlob('Mean')), CAST(mean_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 2 AND board_uuid = '$board_uuid' AND sensor_type = 'moisture'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "B",
+            "target": "SELECT blobAsText(textAsBlob('Median')), CAST(median_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 2 AND board_uuid = '$board_uuid' AND sensor_type = 'moisture'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "C",
+            "target": "SELECT blobAsText(textAsBlob('Min')), CAST(min_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 2 AND board_uuid = '$board_uuid' AND sensor_type = 'moisture'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "D",
+            "target": "SELECT blobAsText(textAsBlob('Max')), CAST(max_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 2 AND board_uuid = '$board_uuid' AND sensor_type = 'moisture'\nALLOW FILTERING;\n"
+          }
+        ],
+        "title": "Statistics Moisture 2 in Percent",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 4,
+          "x": 8,
+          "y": 6
+        },
+        "id": 12,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "SELECT blobAsText(textAsBlob('Mean')), CAST(mean_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 3 AND board_uuid = '$board_uuid' AND sensor_type = 'moisture'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "B",
+            "target": "SELECT blobAsText(textAsBlob('Median')), CAST(median_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 3 AND board_uuid = '$board_uuid' AND sensor_type = 'moisture'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "C",
+            "target": "SELECT blobAsText(textAsBlob('Min')), CAST(min_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 3 AND board_uuid = '$board_uuid' AND sensor_type = 'moisture'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "D",
+            "target": "SELECT blobAsText(textAsBlob('Max')), CAST(max_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 3 AND board_uuid = '$board_uuid' AND sensor_type = 'moisture'\nALLOW FILTERING;\n"
+          }
+        ],
+        "title": "Statistics Moisture 3 in Percent",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 4,
+          "x": 12,
+          "y": 6
+        },
+        "id": 13,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "SELECT blobAsText(textAsBlob('Mean')), CAST(mean_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'humidity'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "B",
+            "target": "SELECT blobAsText(textAsBlob('Median')), CAST(median_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'humidity'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "C",
+            "target": "SELECT blobAsText(textAsBlob('Min')), CAST(min_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'humidity'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "D",
+            "target": "SELECT blobAsText(textAsBlob('Max')), CAST(max_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'humidity'\nALLOW FILTERING;\n"
+          }
+        ],
+        "title": "Statistics Humidty 1 in Percent",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 4,
+          "x": 16,
+          "y": 6
+        },
+        "id": 15,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "SELECT blobAsText(textAsBlob('Mean')), CAST(mean_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'temperature'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "B",
+            "target": "SELECT blobAsText(textAsBlob('Median')), CAST(median_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'temperature'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "C",
+            "target": "SELECT blobAsText(textAsBlob('Min')), CAST(min_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'temperature'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "D",
+            "target": "SELECT blobAsText(textAsBlob('Max')), CAST(max_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'temperature'\nALLOW FILTERING;\n"
+          }
+        ],
+        "title": "Statistics temperature 1 in Degree Celsius",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 4,
+          "x": 20,
+          "y": 6
+        },
+        "id": 14,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "SELECT blobAsText(textAsBlob('Mean')), CAST(mean_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'pressure'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "B",
+            "target": "SELECT blobAsText(textAsBlob('Median')), CAST(median_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'pressure'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "C",
+            "target": "SELECT blobAsText(textAsBlob('Min')), CAST(min_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'pressure'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "D",
+            "target": "SELECT blobAsText(textAsBlob('Max')), CAST(max_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'pressure'\nALLOW FILTERING;\n"
+          }
+        ],
+        "title": "Statistics Pressure 1 in hPa",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 8,
+          "x": 0,
+          "y": 14
+        },
+        "id": 9,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "10.0.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "SELECT sensor_number, sensor_value, timestamp\nFROM sensor_waterlevel\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid'\nORDER BY timestamp DESC \nALLOW FILTERING;"
+          }
+        ],
+        "title": "Waterlevel 1",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 8,
+          "x": 8,
+          "y": 14
+        },
+        "id": 2,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "10.0.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "SELECT sensor_number, sensor_value, timestamp\nFROM sensor_brightness\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid'\nORDER BY timestamp DESC \nALLOW FILTERING;"
+          }
+        ],
+        "title": "Brightness 1 in Lux",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 8,
+          "x": 16,
+          "y": 14
+        },
+        "id": 5,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "10.0.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "SELECT sensor_number, sensor_value, timestamp\nFROM sensor_rain\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid'\nORDER BY timestamp DESC \nALLOW FILTERING;"
+          }
+        ],
+        "title": "Rain 1 in Percent",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 8,
+          "x": 0,
+          "y": 20
+        },
+        "id": 11,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "SELECT blobAsText(textAsBlob('Mean')), CAST(mean_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'waterlevel'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "B",
+            "target": "SELECT blobAsText(textAsBlob('Median')), CAST(median_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'waterlevel'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "C",
+            "target": "SELECT blobAsText(textAsBlob('Min')), CAST(min_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'waterlevel'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "D",
+            "target": "SELECT blobAsText(textAsBlob('Max')), CAST(max_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'waterlevel'\nALLOW FILTERING;\n"
+          }
+        ],
+        "title": "Statistics Waterlevel 1",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 8,
+          "x": 8,
+          "y": 20
+        },
+        "id": 17,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "SELECT blobAsText(textAsBlob('Mean')), CAST(mean_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'brightness'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "B",
+            "target": "SELECT blobAsText(textAsBlob('Median')), CAST(median_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'brightness'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "C",
+            "target": "SELECT blobAsText(textAsBlob('Min')), CAST(min_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'brightness'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "D",
+            "target": "SELECT blobAsText(textAsBlob('Max')), CAST(max_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'brightness'\nALLOW FILTERING;\n"
+          }
+        ],
+        "title": "Statistics Birightness 1 in Lux",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 8,
+          "x": 16,
+          "y": 20
+        },
+        "id": 18,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "SELECT blobAsText(textAsBlob('Mean')), CAST(mean_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'rain'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "B",
+            "target": "SELECT blobAsText(textAsBlob('Median')), CAST(median_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'rain'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "C",
+            "target": "SELECT blobAsText(textAsBlob('Min')), CAST(min_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'rain'\nALLOW FILTERING;\n"
+          },
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "D",
+            "target": "SELECT blobAsText(textAsBlob('Max')), CAST(max_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics\nWHERE sensor_number = 1 AND board_uuid = '$board_uuid' AND sensor_type = 'rain'\nALLOW FILTERING;\n"
+          }
+        ],
+        "title": "Statistics Rain 1 in Percent",
+        "type": "timeseries"
+      }
+    ],
+    "refresh": "",
+    "schemaVersion": 38,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "selected": true,
+            "text": "033A-4F4F-8F69-6B8F3C2E78ED",
+            "value": "033A-4F4F-8F69-6B8F3C2E78ED"
+          },
+          "hide": 0,
+          "includeAll": false,
+          "label": "Board UUID",
+          "multi": false,
+          "name": "board_uuid",
+          "options": [
+            {
+              "selected": false,
+              "text": "101A-4F4F-8F69-6B8F3C2E78ED",
+              "value": "101A-4F4F-8F69-6B8F3C2E78ED"
+            },
+            {
+              "selected": false,
+              "text": "102A-4F4F-8F69-6B8F3C2E78ED",
+              "value": "102A-4F4F-8F69-6B8F3C2E78ED"
+            },
+            {
+              "selected": false,
+              "text": "103A-4F4F-8F69-6B8F3C2E78ED",
+              "value": "103A-4F4F-8F69-6B8F3C2E78ED"
+            },
+            {
+              "selected": true,
+              "text": "033A-4F4F-8F69-6B8F3C2E78ED",
+              "value": "033A-4F4F-8F69-6B8F3C2E78ED"
+            }
+          ],
+          "query": "101A-4F4F-8F69-6B8F3C2E78ED, 102A-4F4F-8F69-6B8F3C2E78ED, 103A-4F4F-8F69-6B8F3C2E78ED, 033A-4F4F-8F69-6B8F3C2E78ED",
+          "queryValue": "",
+          "skipUrlSync": false,
+          "type": "custom"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-2d",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "Filter by Board",
+    "uid": "dfec3c25-698e-4540-8c81-274a0346abc8",
+    "version": 3,
+    "weekStart": ""
+  }

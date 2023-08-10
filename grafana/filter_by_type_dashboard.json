@@ -1,0 +1,381 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 1,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 90
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 6,
+          "x": 0,
+          "y": 0
+        },
+        "id": 1,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "10.0.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "target": "SELECT sensor_number, sensor_value, timestamp\nFROM sensor_$sensor_type \nWHERE sensor_number = $sensor_number AND board_uuid = '$board_uuid'\nORDER BY timestamp DESC \nALLOW FILTERING;\n"
+          }
+        ],
+        "title": "Current Value",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "hadesarchitect-cassandra-datasource",
+          "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 18,
+          "x": 6,
+          "y": 0
+        },
+        "id": 2,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "alias": "mean",
+            "columnId": "sensor_number",
+            "columnValue": "sensor_value",
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "filtering": true,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "A",
+            "table": "sensor_statistics_real",
+            "target": "SELECT blobAsText(textAsBlob('Mean')), CAST(mean_value as double) as mean, toTimestamp(date) as time\nFROM sensor_statistics_real\nWHERE sensor_number = $sensor_number AND board_uuid = '$board_uuid' AND sensor_type = '$sensor_type'\nALLOW FILTERING;\n",
+            "valueId": "1"
+          },
+          {
+            "alias": "min",
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "B",
+            "target": "SELECT blobAsText(textAsBlob('Min')), CAST(min_value as double), toTimestamp(date) as time\nFROM sensor_statistics_real\nWHERE sensor_number = $sensor_number AND board_uuid = '$board_uuid' AND sensor_type = '$sensor_type'\nALLOW FILTERING;\n"
+          },
+          {
+            "alias": "max",
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "C",
+            "target": "SELECT blobAsText(textAsBlob('Max')), CAST(max_value as double), toTimestamp(date) as time\nFROM sensor_statistics_real\nWHERE sensor_number = $sensor_number AND board_uuid = '$board_uuid' AND sensor_type = '$sensor_type'\nALLOW FILTERING;\n"
+          },
+          {
+            "alias": "median",
+            "datasource": {
+              "type": "hadesarchitect-cassandra-datasource",
+              "uid": "d1804122-b54f-451a-9905-4c85ea9f8544"
+            },
+            "datasourceId": 1,
+            "hide": false,
+            "keyspace": "myno",
+            "queryType": "query",
+            "rawQuery": true,
+            "refId": "D",
+            "target": "SELECT blobAsText(textAsBlob('Median')), CAST(median_value as double), toTimestamp(date) as time\nFROM sensor_statistics_real\nWHERE sensor_number = $sensor_number AND board_uuid = '$board_uuid' AND sensor_type = '$sensor_type'\nALLOW FILTERING;\n"
+          }
+        ],
+        "title": "Statistics",
+        "transformations": [],
+        "type": "timeseries"
+      }
+    ],
+    "refresh": "",
+    "schemaVersion": 38,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "selected": true,
+            "text": "102A-4F4F-8F69-6B8F3C2E78ED",
+            "value": "102A-4F4F-8F69-6B8F3C2E78ED"
+          },
+          "hide": 0,
+          "includeAll": false,
+          "label": "Board UUID",
+          "multi": false,
+          "name": "board_uuid",
+          "options": [
+            {
+              "selected": false,
+              "text": "033A-4F4F-8F69-6B8F3C2E78ED",
+              "value": "033A-4F4F-8F69-6B8F3C2E78ED"
+            },
+            {
+              "selected": true,
+              "text": "102A-4F4F-8F69-6B8F3C2E78ED",
+              "value": "102A-4F4F-8F69-6B8F3C2E78ED"
+            },
+            {
+              "selected": false,
+              "text": "103A-4F4F-8F69-6B8F3C2E78ED",
+              "value": "103A-4F4F-8F69-6B8F3C2E78ED"
+            },
+            {
+              "selected": false,
+              "text": "101A-4F4F-8F69-6B8F3C2E78ED",
+              "value": "101A-4F4F-8F69-6B8F3C2E78ED"
+            },
+            {
+              "selected": false,
+              "text": "SIMULATOR1-8A12-4F4F-8F69-6B8F3C2E78DD",
+              "value": "SIMULATOR1-8A12-4F4F-8F69-6B8F3C2E78DD"
+            }
+          ],
+          "query": "033A-4F4F-8F69-6B8F3C2E78ED, 102A-4F4F-8F69-6B8F3C2E78ED, 103A-4F4F-8F69-6B8F3C2E78ED, 101A-4F4F-8F69-6B8F3C2E78ED,SIMULATOR1-8A12-4F4F-8F69-6B8F3C2E78DD",
+          "queryValue": "",
+          "skipUrlSync": false,
+          "type": "custom"
+        },
+        {
+          "current": {
+            "selected": true,
+            "text": "humidity",
+            "value": "humidity"
+          },
+          "hide": 0,
+          "includeAll": false,
+          "label": "Sensor Type",
+          "multi": false,
+          "name": "sensor_type",
+          "options": [
+            {
+              "selected": true,
+              "text": "humidity",
+              "value": "humidity"
+            },
+            {
+              "selected": false,
+              "text": "moisture",
+              "value": "moisture"
+            },
+            {
+              "selected": false,
+              "text": "brightness",
+              "value": "brightness"
+            },
+            {
+              "selected": false,
+              "text": "rain",
+              "value": "rain"
+            },
+            {
+              "selected": false,
+              "text": "moisture",
+              "value": "moisture"
+            },
+            {
+              "selected": false,
+              "text": "temperature",
+              "value": "temperature"
+            },
+            {
+              "selected": false,
+              "text": "pressure",
+              "value": "pressure"
+            }
+          ],
+          "query": "humidity, moisture, brightness, rain, moisture, temperature, pressure",
+          "queryValue": "",
+          "skipUrlSync": false,
+          "type": "custom"
+        },
+        {
+          "current": {
+            "selected": true,
+            "text": "1",
+            "value": "1"
+          },
+          "hide": 0,
+          "includeAll": false,
+          "multi": false,
+          "name": "sensor_number",
+          "options": [
+            {
+              "selected": true,
+              "text": "1",
+              "value": "1"
+            },
+            {
+              "selected": false,
+              "text": "2",
+              "value": "2"
+            },
+            {
+              "selected": false,
+              "text": "3",
+              "value": "3"
+            }
+          ],
+          "query": "1, 2, 3",
+          "queryValue": "",
+          "skipUrlSync": false,
+          "type": "custom"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "Filter Board, Type and Number",
+    "uid": "fea7da8f-57ce-4353-bad2-76616cba4d3f",
+    "version": 12,
+    "weekStart": ""
+  }
