@@ -17,7 +17,7 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     # Split the topic into its individual parts
     parts = msg.topic.split("/")
-
+    print(msg.topic)
     if parts[0] in ("sensor", "state"): # no actuator because its the manual pump
         sensor_type, sensor_number = parts[2].split("_")
         board_uuid = parts[3]
