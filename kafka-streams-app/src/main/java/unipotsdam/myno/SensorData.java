@@ -26,14 +26,20 @@ public class SensorData {
     }
 
     public double getValue() {
-        if (value.toLowerCase().contains("on")) {
-            return 1.0;
-        } else if (value.toLowerCase().contains("off")) {
-            return 0.0;
-        } else {
-            return Double.parseDouble(value);
+    String normalizedValue = value.toLowerCase();
+    if (normalizedValue.contains("on")) {
+        return 1.0;
+    } else if (normalizedValue.contains("off")) {
+        return 0.0;
+    } else {
+        try {
+            return Double.parseDouble(normalizedValue);
+        } catch (NumberFormatException e) {
+            return Double.NaN;
         }
     }
+}
+
 
 }
 
