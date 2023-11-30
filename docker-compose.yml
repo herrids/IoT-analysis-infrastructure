@@ -10,7 +10,7 @@ services:
       GF_SECURITY_ADMIN_USER: admin
       GF_SECURITY_ADMIN_PASSWORD: admin
     volumes:
-      - grafana-data:/var/lib/grafana
+      - grafana_data:/var/lib/grafana
     depends_on:
       - cassandra
     networks:
@@ -81,9 +81,9 @@ services:
     restart: on-failure
 
 volumes:
-  kafka-data:
+  kafka_data:
   cassandra_data:
-  grafana-data:
+  grafana_data:
     driver: local
 
 networks:
