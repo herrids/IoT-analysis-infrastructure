@@ -44,6 +44,8 @@ services:
       KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://127.0.0.1:9092
     networks:
       - app-tier
+    volumes:
+      -kafka_data:/bitnami
 
   cassandra:
     container_name: cassandra
@@ -79,6 +81,7 @@ services:
     restart: on-failure
 
 volumes:
+  kafka-data:
   cassandra_data:
   grafana-data:
     driver: local
