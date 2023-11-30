@@ -45,7 +45,7 @@ services:
     networks:
       - app-tier
     volumes:
-      -kafka_data:/bitnami
+      - kafka_data:/bitnami
 
   cassandra:
     container_name: cassandra
