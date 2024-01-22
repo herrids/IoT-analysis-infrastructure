@@ -46,6 +46,7 @@ services:
       - app-tier
     volumes:
       - kafka_data:/bitnami
+    restart: on-failure
 
   cassandra:
     container_name: cassandra

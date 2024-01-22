@@ -16,6 +16,7 @@ def on_connect(client, userdata, flags, rc):
 # This function is called when a message is received from the broker
 def on_message(client, userdata, msg):
     # Split the topic into its individual parts
+    print(msg.topic)
     parts = msg.topic.split("/")
     if parts[0] in ("sensor", "state"): # no actuator because its the manual pump
         sensor_type, sensor_number = parts[2].split("_")
